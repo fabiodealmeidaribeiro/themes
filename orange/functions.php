@@ -7,7 +7,7 @@
     $_domain_i = 'localhost';
 
     $_domain_ii = 'puravidahostel.com.br';
-    
+
     if ($_SERVER['HTTP_HOST'] === trim($_domain_i) || $_SERVER['HTTP_HOST'] === trim($_domain_ii)):
 
         // Modo classico do admin
@@ -447,7 +447,6 @@
                 [ 'src' => 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js', ],
                 [ 'module' => true, 'src' => 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', ],
                 [ 'src' => 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js', ],
-                [ 'src' => 'https://duz4dqsaqembt.cloudfront.net/client/whats.js', ],
             ]);
             $is_return .= orange_sever_archive([
                 [ 'archive' => '--script.js', 'folder' => 'javascripts', 'module' => true, ],
@@ -472,46 +471,48 @@
         };
 
         function orange_side_button_config ($object, $string = 'top') {
-            $is_return = '';
+            $is_array = [];
             for ($i = 0 ; $i < sizeof($object); $i++):
-                if (is_true_variable($object[$i]->url)):
-                    $is_return .= orange_config_selector(
-                        [
-                            'href' => esc_url(trim($object[$i]->url)),
-                            'target' => is_true_variable($object[$i]->target) ? '_blank' : '',
-                        ],
-                        [
-                            'closed' => false,
-                            'name' => 'a',
-                        ],
-                    );
+                if (!is_true_variable($object[$i]->title)): else:
+                    array_push($is_array, $object[$i]);
                 endif;
-                if (is_true_variable($object[$i]->name)):
-                    $is_return .= orange_config_selector(
-                        [
-                            'class' => 'side-button',
-                            'id' => is_true_variable($object[$i]->id) ? trim($object[$i]->id) : '',
-                            'style' => [
-                                'right' => '1rem',
-                                trim($string) => 'calc(calc(3rem + 1rem) * ' . $i . ' + 1rem)',
+            endfor;
+            $is_return = '';
+            for ($i = 0 ; $i < sizeof($is_array); $i++):
+                $is_return .= is_true_variable($is_array[$i]->url) ? orange_config_selector (
+                    [
+                        'href' => esc_url(trim($is_array[$i]->url)),
+                        'target' => is_true_variable($is_array[$i]->target) ? '_blank' : '',
+                    ],
+                    [
+                        'closed' => false,
+                        'name' => 'a',
+                    ],
+                ) : '';
+                $is_return .= orange_config_selector(
+                    [
+                        'class' => 'side-button',
+                        'id' => is_true_variable($is_array[$i]->id) ? trim($is_array[$i]->id) : '',
+                        'style' => [
+                            'right' => '1rem',
+                            trim($string) => 'calc(calc(3rem + 1rem) * ' . $i . ' + 1rem)',
+                        ],
+                    ],
+                    [
+                        'closed' => true,
+                        'content' => orange_config_selector(
+                            [
+                                'name' => trim($is_array[$i]->name),
                             ],
-                        ],
-                        [
-                            'closed' => true,
-                            'content' => orange_config_selector(
-                                [
-                                    'name' => trim($object[$i]->name),
-                                ],
-                                [
-                                    'closed' => true,
-                                    'name' => 'ion-icon',
-                                ],
-                            ),
-                            'name' => 'div',
-                        ],
-                    );
-                endif;
-                $is_return .= is_true_variable($object[$i]->url) ? '</a>' : '';
+                            [
+                                'closed' => true,
+                                'name' => 'ion-icon',
+                            ],
+                        ),
+                        'name' => 'div',
+                    ],
+                );
+                $is_return .= is_true_variable($is_array[$i]->url) ? '</a>' : '';
             endfor;
             return $is_return;
         };
@@ -979,14 +980,9 @@
             $is_return = '';
             foreach (wp_get_sidebars_widgets()[$id] as $key):
                 $is_widget = get_option('widget_' . _get_widget_id_base($key))[str_replace(_get_widget_id_base($key) . '-', '', $key)]['content'];
-                $n = 6;
-                $is_array = [];
-                for ($i = 1; $i < 9; $i++): if ($i === $n): else: array_push($is_array, '<' . $n . '>'); endif; endfor;
-                $is_content = str_replace($is_array, orange_config_selector([ 'style' => [ 'height' => '1rem' ] ]) . '<h6>', $is_widget);
-                $is_array = [];
-                for ($i = 1; $i < 9; $i++): if ($i === $n): else: array_push($is_array, '</' . $n . '>'); endif; endfor;
-                $is_content = str_replace($is_array, '</h6>' . orange_config_selector([ 'style' => [ 'height' => '.5rem' ] ]), $is_content);
-                $is_return .= $is_content;
+                $is_widget = str_replace([ '<h1>', '<h2>', '<h3>', '<h4>', '<h5>', '<h6>', '<h7>', '<h8>', '<h9>' ], '<h6>', $is_widget);
+                $is_widget = str_replace([ '</h1>', '</h2>', '</h3>', '</h4>', '</h5>', '</h6>', '</h7>', '</h8>', '</h9>' ], '</h6>', $is_widget);
+                $is_return .= $is_widget;
             endforeach;
             return $is_return;
         }
@@ -1410,48 +1406,107 @@
             $is_return = '';
             if (is_true_key($object, 'type')):
                 if ($object['type'] === 'bloginfo'):
-                    $is_return .= orange_config_selector([ 'style' => [ 'height' => '3rem', ], ]);
                     $is_return .= '<header>';
-                        $is_path = '/images/logo.jpg';
-                        if (file_exists(__DIR__ . $is_path)):
-                            $is_return .= '<picture>';
-                                $is_return .= '<a href=' . home_url('/') . '>';
-                                    $is_return .= '<img';
-                                    $is_return .= ' src=\'' . get_template_directory_uri() . $is_path . '\'';
-                                    if (is_true_variable(get_bloginfo('name'))):
-                                        $is_return .= ' alt=';
-                                        $is_return .= '\'';
-                                            $is_return .= get_bloginfo('name');
-                                            if (is_true_variable(get_bloginfo('description'))):
-                                                $is_return .= ' | ';
-                                                $is_return .= get_bloginfo('description');
-                                            endif;
-                                        $is_return .= '\'';
-                                    endif;
-                                    $is_return .= '>';
-                                $is_return .= '</a>';
-                            $is_return .= '</picture>';
-                        endif;
-                        if (is_true_variable(get_bloginfo('name'))):
-                            $is_return .= '<div id=\'bloginfo\'>';
-                                $is_return .= orange_text_content([
-                                    'content' => html_entity_decode(get_bloginfo('name')),
-                                    'url' => [
-                                        'href' => home_url('/'),
-                                    ],
-                                    'wrapper' => 'h1',
-                                ]);
-                                if (is_true_variable(get_bloginfo('description'))):
-                                    $is_return .= orange_text_content([
-                                        'content' => html_entity_decode(get_bloginfo('description')),
-                                        'url' => [
-                                            'href' => home_url('/'),
-                                        ],
-                                        'wrapper' => [ 'p' ],
-                                    ]);
-                                endif;
-                            $is_return .= '</div>';
-                        endif;
+                        $is_return .= '<div id=\'brand\'>';
+                            $is_path = '/images/logo.jpg';
+                            if (file_exists(__DIR__ . $is_path)):
+                                $is_return .= '<picture>';
+                                    $is_return .= '<a href=' . home_url('/') . '>';
+                                        $is_return .= '<img';
+                                        $is_return .= ' src=\'' . get_template_directory_uri() . $is_path . '\'';
+                                        if (is_true_variable(get_bloginfo('name'))):
+                                            $is_return .= ' alt=';
+                                            $is_return .= '\'';
+                                                $is_return .= get_bloginfo('name');
+                                                if (is_true_variable(get_bloginfo('description'))):
+                                                    $is_return .= ' | ';
+                                                    $is_return .= get_bloginfo('description');
+                                                endif;
+                                            $is_return .= '\'';
+                                        endif;
+                                        $is_return .= '>';
+                                    $is_return .= '</a>';
+                                $is_return .= '</picture>';
+                            endif;
+                            $is_content = '';
+                            $is_content .= is_true_variable(get_bloginfo('name')) ? orange_text_content([
+                                'content' => get_bloginfo('name'),
+                                'url' => [
+                                    'href' => home_url('/'),
+                                ],
+                                'wrapper' => 'h1',
+                            ]) : '';
+                            $is_content .= is_true_variable(get_bloginfo('description')) ? orange_text_content([
+                                'content' => get_bloginfo('description'),
+                                'url' => [
+                                    'href' => home_url('/'),
+                                ],
+                                'wrapper' => [ 'p' ],
+                            ]) : '';
+                            $is_return .= is_true_variable(get_bloginfo('name')) ? orange_config_selector (
+                                [
+                                    'id' => 'bloginfo',
+                                ],
+                                [
+                                    'closed' => true,
+                                    'content' => $is_content,
+                                    'name' => 'div',
+                                ],
+                            ) : '';
+                        $is_return .= '</div>';
+                        $is_return .= '<div id=\'reservation\'>';
+
+                            $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' id=\'bookingForm\' method=\'get\' name=\'bookingForm\' class=\'w-100 row g-3\' target=\'_blank\' accept-charset=\'utf-8\'>';
+                                $is_return .= '<div class=\'col-auto\'>';
+                                    $is_return .= '<div class=\'input-group\'>';
+                                        $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
+                                        $is_return .= '<span class=\'input-group-text\'>';
+                                            $is_return .= 'Chegada';
+                                        $is_return .= '</span>';
+                                    $is_return .= '</div>';
+                                $is_return .= '</div>';
+                                $is_return .= '<div class=\'col-auto\'>';
+                                    $is_return .= '<div class=\'input-group\'>';
+                                        $is_return .= '<select class=\'form-control\' name=\'nights\'>';
+                                            for ($i = 0; $i < 31; $i++):
+                                                $is_return .= '<option';
+                                                    $is_return .= ' value=\'' . ($i + 1) . '\'';
+                                                    $is_return .= !$i ? ' selected' : '';
+                                                $is_return .= '>';
+                                                $is_return .= $i + 1;
+                                                $is_return .= '</option>';
+                                            endfor;
+                                        $is_return .= '</select>';
+                                        $is_return .= '<span class=\'input-group-text\'>';
+                                            $is_return .= 'Noite';
+                                        $is_return .= '</span>';
+                                    $is_return .= '</div>';
+                                $is_return .= '</div>';
+                                $is_return .= '<div class=\'col-auto\'>';
+                                    $is_return .= '<button type=\'submit\' class=\'btn btn-primary mb-3\'>';
+                                        $is_return .= 'Checar';
+                                    $is_return .= '</button>';
+                                $is_return .= '</div>';
+                            $is_return .= '</form>';
+
+                            // $is_return .= '<iframe';
+                            // $is_return .= ' src=\'';
+                            //     $is_return .= 'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/widget?';
+                            //     $is_return .= 'width=100%';
+                            //     $is_return .= '&use_fluid_width=1';
+                            //     $is_return .= '&body_color=FFFFFF';
+                            //     $is_return .= '&body_text_color=000000';
+                            //     $is_return .= '&button_color=4f235f';
+                            //     $is_return .= '&button_text_color=ffffff';
+                            // $is_return .= '\'';
+                            // $is_return .= ' height=\'100\'';
+                            // $is_return .= ' style=\'';
+                            //     $is_return .= ' width:100%;';
+                            //     $is_return .= ' height:300px;';
+                            // $is_return .= '\'';
+                            // $is_return .= ' frameborder=\'0\'></iframe>';
+
+                        $is_return .= '</div>';
                     $is_return .= '</header>';
                     $is_return .= is_page() || is_search() || is_single() ? orange_config_selector([ 'style' => [ 'height' => '3rem' ]]) : '';
                 endif;

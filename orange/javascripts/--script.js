@@ -30,10 +30,4 @@ document.addEventListener("DOMContentLoaded", () => {
     orange_add_remove_classes({ classes: [ 'active', ], elements: [ '.current-cat>a', '.current_page_item>a' ], method: 'add', });
     orange_lightbox_carousel();
     // orange_lightbox_thumbnail();
-    // window.rwbp = {
-    //     email : 'far820320@gmail.com',
-    //     phone : '+5511940058153',
-    //     message : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis aliquam sapien. Vivamus in augue venenatis augue convallis aliquet.',
-    //     lang : 'pt-BR',
-    // };
 });
