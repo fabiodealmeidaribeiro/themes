@@ -1433,6 +1433,9 @@
                     $is_return .= '<header>';
                         $is_return .= '<div id=\'brand\'>';
                             $is_path = '/images/logo.jpg';
+
+                            // FABIO
+
                             if (file_exists(__DIR__ . $is_path)):
                                 $is_return .= '<picture>';
                                     $is_return .= '<a href=' . home_url('/') . '>';
@@ -1452,6 +1455,7 @@
                                     $is_return .= '</a>';
                                 $is_return .= '</picture>';
                             endif;
+
                             $is_content = '';
                             $is_content .= is_true_variable(get_bloginfo('name')) ? orange_text_content([
                                 'content' => get_bloginfo('name'),
@@ -1460,6 +1464,7 @@
                                 ],
                                 'wrapper' => 'h1',
                             ]) : '';
+
                             $is_content .= is_true_variable(get_bloginfo('description')) ? orange_text_content([
                                 'content' => get_bloginfo('description'),
                                 'url' => [
@@ -1467,6 +1472,7 @@
                                 ],
                                 'wrapper' => [ 'p' ],
                             ]) : '';
+
                             $is_return .= is_true_variable(get_bloginfo('name')) ? orange_config_selector (
                                 [
                                     'id' => 'bloginfo',
@@ -1477,11 +1483,12 @@
                                     'name' => 'div',
                                 ],
                             ) : '';
+
                         $is_return .= '</div>';
                         $is_return .= '<div id=\'reservation\'>';
-
-                            $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' id=\'bookingForm\' method=\'get\' name=\'bookingForm\' class=\'w-100 row g-3\' target=\'_blank\' accept-charset=\'utf-8\'>';
-                                $is_return .= '<div class=\'col-auto\'>';
+                            $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' id=\'bookingForm\' method=\'get\' name=\'bookingForm\' class=\'row g-3\' target=\'_blank\' accept-charset=\'utf-8\'>';
+                                
+                                $is_return .= '<div class=\'col-auto m-0 p-0\'>';
                                     $is_return .= '<div class=\'input-group\'>';
                                         $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
                                         $is_return .= '<span class=\'input-group-text\'>';
@@ -1489,7 +1496,8 @@
                                         $is_return .= '</span>';
                                     $is_return .= '</div>';
                                 $is_return .= '</div>';
-                                $is_return .= '<div class=\'col-auto\'>';
+
+                                $is_return .= '<div class=\'col-auto m-0 p-0\'>';
                                     $is_return .= '<div class=\'input-group\'>';
                                         $is_return .= '<select class=\'form-control\' name=\'nights\'>';
                                             for ($i = 0; $i < 31; $i++):
@@ -1506,11 +1514,13 @@
                                         $is_return .= '</span>';
                                     $is_return .= '</div>';
                                 $is_return .= '</div>';
-                                $is_return .= '<div class=\'col-auto\'>';
-                                    $is_return .= '<button type=\'submit\' class=\'btn btn-primary mb-3\'>';
+
+                                $is_return .= '<div class=\'col-auto m-0 p-0\'>';
+                                    $is_return .= '<button type=\'submit\' class=\'btn btn-primary\'>';
                                         $is_return .= 'Checar';
                                     $is_return .= '</button>';
                                 $is_return .= '</div>';
+
                             $is_return .= '</form>';
 
                             // $is_return .= '<iframe';
