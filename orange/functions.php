@@ -1402,6 +1402,30 @@
             return $is_return;
         };
 
+        function orange_modal ($object) {
+            $is_return = '';
+            $is_return .= '<div class=\'modal\' tabindex=\'-1\'>';
+                $is_return .= '<div class=\'modal-dialog\'>';
+                    $is_return .= '<div class=\'modal-content\'>';
+                        $is_return .= '<div class=\'modal-header\'>';
+                            $is_return .= is_true_key($object, 'title') ? '<h5>' . $object['title'] . '</h5>' : '';
+                            $is_return .= '<button type=\'button\' class=\'btn-close\' data-bs-dismiss=\'modal\' aria-label=\'Close\'></button>';
+                        $is_return .= '</div>';
+                        if (is_true_key($object, 'body')):
+                            $is_return .= '<div class=\'modal-body\'>';
+                                $is_return .= $object['body'];
+                            $is_return .= '</div>';
+                        endif;
+                        $is_return .= '<div class=\'modal-footer\'>';
+                            $is_return .= '<button type=\'button\' class=\'btn btn-secondary\' data-bs-dismiss=\'modal\'>' . 'Close' . '</button>';
+                            $is_return .= '<button type=\'button\' class=\'btn btn-primary\'>' . 'Save' . '</button>';
+                        $is_return .= '</div>';
+                    $is_return .= '</div>';
+                $is_return .= '</div>';
+            $is_return .= '</div>';
+            return $is_return;
+        };
+
         function orange_header ($object) {
             $is_return = '';
             if (is_true_key($object, 'type')):
