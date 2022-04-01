@@ -17,6 +17,8 @@
             wp_dequeue_style('storefront-gutenberg-blocks');
         }, 100);
 
+        add_filter('show_admin_bar', '__return_false');
+
         // Remove páginas admin
         add_action('admin_menu', function () {
             // remove_menu_page('index.php');
@@ -25,7 +27,7 @@
             // remove_menu_page('upload.php');
             // remove_menu_page('edit.php?post_type=page');
             remove_menu_page('edit-comments.php');
-            remove_menu_page('themes.php');
+            // remove_menu_page('themes.php');
             // remove_menu_page('plugins.php');
             // remove_menu_page('users.php');
             // remove_menu_page('tools.php');
@@ -35,6 +37,11 @@
         // Google Analytic
         add_action('wp_footer', function () {
         });
+
+
+
+
+
 
         // Rodapé do admin
         add_filter('admin_footer_text', function () {
@@ -48,6 +55,21 @@
                     'number' => '5511940058153',
                 ],
             ]);
+        });
+
+        add_action('wp_head', function () {
+            echo '<link';
+                echo ' rel=\'Shortcut Icon\'';
+                echo ' type=\'image/x-icon\'';
+                echo ' href=\'';
+                    echo get_bloginfo('wpurl');
+                    echo 'http://cdn3.wpbeginner.com/favicon.ico';
+                echo '\'';
+            echo '/>';
+        });
+
+        add_filter('excerpt_more', function () {
+            return '<p>' . 'FABIO' . '</p>';
         });
 
         // Versão do wordpress
@@ -66,6 +88,11 @@
         add_filter('script_loader_src', 'sunset_remove_wp_version_strings');
         add_filter('style_loader_src', 'sunset_remove_wp_version_strings');
 
+        // Adicione um favicon para seu site
+        add_action('wp_head', function () {
+            echo '<link rel=\'shortcut icon\' type=\'image/x-icon\' href=\'' . '' . '\' />';
+        });
+        
         // Adicionar campo no perfil
         // add_filter('user_contactmethods', function ($field) {
         //     $field['facebook']  = 'Facebook';
@@ -85,6 +112,22 @@
                 'excerpt',
                 'comments',
             ]);
+        });
+        
+        add_filter('manage_edit-post_columns', function ($column) {
+            unset($column['author']);
+            unset($column['categories']);
+            unset($column['comments']);
+            unset($column['date']);
+            unset($column['tags']);
+            return $column;
+        });
+
+        add_filter('manage_pages_columns', function ($column) {
+            unset($column['author']);
+            unset($column['comments']);
+            unset($column['date']);
+            return $column;
         });
 
         // Formato de post
@@ -111,8 +154,14 @@
             ]);
         });
 
+        // Definimos um nome, a largura e altura
+        // add_image_size('tamanho-personalizado-2', 220, 180, true);
+
         // Menu personalizado
-        // register_nav_menus(array('top_menu' => 'top_menu'));
+        // register_nav_menus([
+        //     'menu_1' => 'Primeiro Menu',
+        //     'menu_2' => 'Segundo Menu',
+        // ]);
 
         // require require_file ('/inc/functions.php');
 

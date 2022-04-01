@@ -186,18 +186,18 @@
             ],
             "bottom": [
                 {
-                    "id": "side-button-up",
-                    "name": "arrow-up",
-                    "target": false,
-                    "title": "",
-                    "url": "#"
-                },
-                {
                     "id": "side-button-down",
                     "name": "arrow-down",
                     "target": false,
                     "title": "",
                     "url": "#footer"
+                },
+                {
+                    "id": "side-button-up",
+                    "name": "arrow-up",
+                    "target": false,
+                    "title": "",
+                    "url": "#"
                 }
             ]
         },
