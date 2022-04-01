@@ -1,9 +1,13 @@
 <?php
 
+    // USUÁRIO: puravidah2
+
+    // SENHA: Pur@369vida
+
     $_domain_i = 'localhost';
 
     $_domain_ii = 'puravidahostel.com.br';
-
+    
     if ($_SERVER['HTTP_HOST'] === trim($_domain_i) || $_SERVER['HTTP_HOST'] === trim($_domain_ii)):
 
         // Modo classico do admin
@@ -37,11 +41,6 @@
         // Google Analytic
         add_action('wp_footer', function () {
         });
-
-
-
-
-
 
         // Rodapé do admin
         add_filter('admin_footer_text', function () {
@@ -113,7 +112,7 @@
                 'comments',
             ]);
         });
-        
+
         add_filter('manage_edit-post_columns', function ($column) {
             unset($column['author']);
             unset($column['categories']);
