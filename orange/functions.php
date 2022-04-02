@@ -90,7 +90,7 @@
         add_action('wp_head', function () {
             echo '<link rel=\'shortcut icon\' type=\'image/x-icon\' href=\'' . '' . '\' />';
         });
-        
+
         // Adicionar campo no perfil
         // add_filter('user_contactmethods', function ($field) {
         //     $field['facebook']  = 'Facebook';
@@ -1506,7 +1506,7 @@
                                         $is_return .= '<span class=\'input-group-text\'>';
                                             $is_return .= 'Data de chegada';
                                         $is_return .= '</span>';
-                                        $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
+                                        $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'' . '' . '\'>';
                                     $is_return .= '</div>';
                                 $is_return .= '</div>';
                                 $is_return .= '<div id=\'reservation-number\'>';
@@ -1534,22 +1534,26 @@
                             $is_return .= '</form>';
                         $is_return .= '</div>';
                     $is_return .= '</header>';
-                    $is_return .= is_page() || is_search() || is_single() ? orange_config_selector([ 'style' => [ 'height' => '3rem' ]]) : '';
                 endif;
                 if ($object['type'] === 'category'):
                     if (is_category()):
-                        if (is_true_variable(get_category(get_query_var('cat'))->description)):
-                            $is_return .= '<header>';
-                                $is_return .= orange_text_content([
-                                    'content' => trim(get_category(get_query_var('cat'))->name),
-                                    'wrapper' => 'h2',
-                                ]);
-                                $is_return .= orange_text_content([
-                                    'content' => trim(get_category(get_query_var('cat'))->description),
-                                    'wrapper' => [ 'p', 'em' ],
-                                ]);
-                            $is_return .= '</header>';
-                        endif;
+                        $is_content = '';
+                        $is_content .= is_true_variable(get_category(get_query_var('cat'))->name) ? orange_text_content([
+                            'content' => trim(get_category(get_query_var('cat'))->name),
+                            'wrapper' => 'h2',
+                        ]) : '';
+                        $is_content .= is_true_variable(get_category(get_query_var('cat'))->description) ? orange_text_content([
+                            'content' => trim(get_category(get_query_var('cat'))->description),
+                            'wrapper' => [ 'p', 'em' ],
+                        ]) : '';
+                        $is_return .= is_true_variable(get_category(get_query_var('cat'))->description) ? orange_config_selector(
+                            [],
+                            [
+                                'closed' => true,
+                                'content' => $is_content,
+                                'name' => 'header',
+                            ],
+                        ) : '';
                     endif;
                 endif;
                 if ($object['type'] === 'author'):

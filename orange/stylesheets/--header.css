@@ -27,7 +27,7 @@
 #container>header>#brand>#bloginfo:hover>p>a,
 #container>header>#brand>#bloginfo:hover>h1>a
 {
-  color: var(--dark-color-pink);
+  color: var(--dark-color-purple);
 }
 #container>header>#reservation
 {
@@ -36,6 +36,7 @@
 }
 #container>header>#reservation>form
 {
+  display: flex;
   justify-content: center;
   margin: 0;
   width: 100%;
@@ -78,23 +79,20 @@ main>article>header { margin: 2rem 0 0 0; }
   }
   #container>header>#reservation>form
   {
+    display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
-  }
-  #container>header>#reservation>form>#reservation-date,
-  #container>header>#reservation>form>#reservation-number,
-  #container>header>#reservation>form>#reservation-check
-  {
-    width: calc(100% - var(--margin) * 1);
   }
   #container>header>#reservation>form>#reservation-date,
   #container>header>#reservation>form>#reservation-number
   {
+    display: block;
+    width: calc(100% - var(--margin) * 1);
     margin: 0 0 var(--margin) 0;
   }
   #container>header>#reservation>form>#reservation-check
   {
+    display: block;
     margin: 0;
   }
 }
