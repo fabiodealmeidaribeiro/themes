@@ -257,31 +257,52 @@
         function orange_metatags () {
             global $JSON;
             $is_return = '';
-            $is_return .= '<meta name=\'author\' content=\'';
-                $is_return .= is_true_variable(get_bloginfo('name')) ? trim(get_bloginfo('name')) : trim($JSON->hostel->title);
-            $is_return .= '\'>';
-            $is_return .= '<meta name=\'description\' content=\'';
-                $is_return .= is_true_variable(get_bloginfo('description')) ? trim(get_bloginfo('description')) : trim($JSON->hostel->description);
-            $is_return .= '\'>';
-            if (is_true_variable($JSON->app->meta->object) || is_true_variable($JSON->app->meta->genre) || is_true_variable($JSON->app->meta->place)):
-                $is_return .= '<meta';
-                    $is_return .= ' name=\'keywords\'';
-                    $is_return .= ' content=\'';
-                        for ($x = 0; $x < (is_true_variable($JSON->app->meta->object) ? sizeof($JSON->app->meta->object) : 0); $x++):
-                            for ($y = 0; $y < (is_true_variable($JSON->app->meta->genre) ? sizeof($JSON->app->meta->genre) : 0); $y++):
-                                for ($z = 0; $z < (is_true_variable($JSON->app->meta->place) ? sizeof($JSON->app->meta->place) : 0); $z++):
-                                    $is_return .= trim($JSON->app->meta->object[$x]);
-                                    $is_return .= is_true_variable($JSON->app->meta->genre[$y]) ? ' ' : '';
-                                    $is_return .= trim($JSON->app->meta->genre[$y]);
-                                    $is_return .= is_true_variable($JSON->app->meta->place[$z]) ? ' ' : '';
-                                    $is_return .= trim($JSON->app->meta->place[$z]);
-                                    $is_return .= $x < sizeof($JSON->app->meta->object) - 1 || $y < sizeof($JSON->app->meta->genre) - 1 || $z < sizeof($JSON->app->meta->place) - 1 ? ', ' : '';
-                                endfor;
-                            endfor;
-                        endfor;
-                    $is_return .= '\'';
-                $is_return .= '>';
-            endif;
+            $is_return .= orange_config_selector (
+                [
+                    'name' => 'author',
+                    'content' => is_true_variable(get_bloginfo('name')) ? trim(get_bloginfo('name')) : trim($JSON->hostel->title),
+                ],
+                [
+                    'closed' => false,
+                    'content' => '',
+                    'name' => 'meta',
+                ],
+            );
+            $is_return .= orange_config_selector (
+                [
+                    'name' => 'description',
+                    'content' => is_true_variable(get_bloginfo('description')) ? trim(get_bloginfo('description')) : trim($JSON->hostel->description),
+                ],
+                [
+                    'closed' => false,
+                    'content' => '',
+                    'name' => 'meta',
+                ],
+            );
+            $is_keyword = '';
+            for ($x = 0; $x < (is_true_variable($JSON->app->meta->object) ? sizeof($JSON->app->meta->object) : 0); $x++):
+                for ($y = 0; $y < (is_true_variable($JSON->app->meta->genre) ? sizeof($JSON->app->meta->genre) : 0); $y++):
+                    for ($z = 0; $z < (is_true_variable($JSON->app->meta->place) ? sizeof($JSON->app->meta->place) : 0); $z++):
+                        $is_keyword .= trim($JSON->app->meta->object[$x]);
+                        $is_keyword .= is_true_variable($JSON->app->meta->genre[$y]) ? ' ' : '';
+                        $is_keyword .= trim($JSON->app->meta->genre[$y]);
+                        $is_keyword .= is_true_variable($JSON->app->meta->place[$z]) ? ' ' : '';
+                        $is_keyword .= trim($JSON->app->meta->place[$z]);
+                        $is_keyword .= $x < sizeof($JSON->app->meta->object) - 1 || $y < sizeof($JSON->app->meta->genre) - 1 || $z < sizeof($JSON->app->meta->place) - 1 ? ', ' : '';
+                    endfor;
+                endfor;
+            endfor;
+            $is_return .= is_true_variable($JSON->app->meta->object) || is_true_variable($JSON->app->meta->genre) || is_true_variable($JSON->app->meta->place) ? orange_config_selector (
+                [
+                    'name' => 'keywords',
+                    'content' => $is_keyword,
+                ],
+                [
+                    'closed' => false,
+                    'content' => '',
+                    'name' => 'meta',
+                ],
+            ) : '';
             $is_return .= '<meta name=\'robots\' content=\'index, follow\'>';
             $is_return .= '<meta name=\'viewport\' content=\'width=device-width, initial-scale=1, shrink-to-fit=no\'>';
             $is_return .= '<meta http-equiv=\'Content-Type\' content=\'text/html; charset=utf-8\'>';
@@ -1478,21 +1499,21 @@
                                 'name' => 'div',
                             ],
                         );
-                        
                         $is_return .= '<div id=\'reservation\'>';
                             $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' id=\'bookingForm\' method=\'get\' name=\'bookingForm\' class=\'row g-3\' target=\'_blank\' accept-charset=\'utf-8\'>';
-                                
-                                $is_return .= '<div class=\'col-auto m-0 p-0\'>';
+                                $is_return .= '<div id=\'reservation-date\'>';
                                     $is_return .= '<div class=\'input-group\'>';
-                                        $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
                                         $is_return .= '<span class=\'input-group-text\'>';
-                                            $is_return .= 'Chegada';
+                                            $is_return .= 'Data de chegada';
                                         $is_return .= '</span>';
+                                        $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
                                     $is_return .= '</div>';
                                 $is_return .= '</div>';
-
-                                $is_return .= '<div class=\'col-auto m-0 p-0\'>';
+                                $is_return .= '<div id=\'reservation-number\'>';
                                     $is_return .= '<div class=\'input-group\'>';
+                                        $is_return .= '<span class=\'input-group-text\'>';
+                                            $is_return .= 'Número de noites';
+                                        $is_return .= '</span>';
                                         $is_return .= '<select class=\'form-control\' name=\'nights\'>';
                                             for ($i = 0; $i < 31; $i++):
                                                 $is_return .= '<option';
@@ -1503,37 +1524,14 @@
                                                 $is_return .= '</option>';
                                             endfor;
                                         $is_return .= '</select>';
-                                        $is_return .= '<span class=\'input-group-text\'>';
-                                            $is_return .= 'Noite';
-                                        $is_return .= '</span>';
                                     $is_return .= '</div>';
                                 $is_return .= '</div>';
-
-                                $is_return .= '<div class=\'col-auto m-0 p-0\'>';
-                                    $is_return .= '<button type=\'submit\' class=\'btn btn-primary\'>';
-                                        $is_return .= 'Checar';
+                                $is_return .= '<div id=\'reservation-check\'>';
+                                    $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>';
+                                        $is_return .= 'Checar disponibilidade';
                                     $is_return .= '</button>';
                                 $is_return .= '</div>';
-
                             $is_return .= '</form>';
-
-                            // $is_return .= '<iframe';
-                            // $is_return .= ' src=\'';
-                            //     $is_return .= 'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/widget?';
-                            //     $is_return .= 'width=100%';
-                            //     $is_return .= '&use_fluid_width=1';
-                            //     $is_return .= '&body_color=FFFFFF';
-                            //     $is_return .= '&body_text_color=000000';
-                            //     $is_return .= '&button_color=4f235f';
-                            //     $is_return .= '&button_text_color=ffffff';
-                            // $is_return .= '\'';
-                            // $is_return .= ' height=\'100\'';
-                            // $is_return .= ' style=\'';
-                            //     $is_return .= ' width:100%;';
-                            //     $is_return .= ' height:300px;';
-                            // $is_return .= '\'';
-                            // $is_return .= ' frameborder=\'0\'></iframe>';
-
                         $is_return .= '</div>';
                     $is_return .= '</header>';
                     $is_return .= is_page() || is_search() || is_single() ? orange_config_selector([ 'style' => [ 'height' => '3rem' ]]) : '';
