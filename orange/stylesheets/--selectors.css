@@ -52,7 +52,6 @@ h4, h4>a,
 h5, h5>a,
 h6, h6>a
 {
-  color: var(--dark-color-purple);
   font-family: var(--title-font-family);
   font-weight: 500;
   line-height: 1;

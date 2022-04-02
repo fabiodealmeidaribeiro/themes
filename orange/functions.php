@@ -1,8 +1,7 @@
 <?php
 
     // USUÁRIO: puravidah2
-
-    // SENHA: Pur@369vida
+    // SENHA: Pur@369vi
 
     $_domain_i = 'localhost';
 
@@ -381,9 +380,7 @@
                 for ($i = 0; $i < sizeof($is_array); $i++):
                     $is_index = trim($is_array[$i]);
                     $is_replace = '';
-                    $is_replace .= '<em>';
                     $is_replace .= $is_index;
-                    $is_replace .= '</em>';
                     $is_return = str_replace($is_index, $is_replace, $is_return);
                 endfor;
             endif;
@@ -405,7 +402,9 @@
             $is_content = str_replace('</li>', '</p></li>', $is_content);
             $is_content = str_replace('<p><p>', '<p>', $is_content);
             $is_content = str_replace('</p></p>', '</p>', $is_content);
-            $is_content = is_true_variable($JSON->app->highlight) ? orange_highlight([ 'array' => $JSON->app->highlight, 'content' => $is_content, ]) : $is_content;
+            // $is_content = is_true_variable($JSON->app->highlight)
+            // ? orange_highlight([ 'array' => $JSON->app->highlight, 'content' => $is_content, ])
+            // : $is_content;
             $is_return .= is_true_key ($object, 'content') ? $is_content : '';
             $is_return .= is_true_key ($object, 'url') ? '</a>' : '';
             $is_return .= is_true_key ($object, 'wrapper') ? orange_wrapper($object['wrapper'], 'closed') : '';
@@ -537,33 +536,29 @@
                     $is_path .= '/';
                     $is_path .= trim($object[$i]['archive']);
                     if (is_last_word($object[$i]['archive'], '.css')):
-                        if (file_exists(__DIR__ . $is_path)):
-                            $is_return .= orange_config_selector(
-                                [
-                                    'rel' => 'stylesheet',
-                                    'href' => esc_url(get_template_directory_uri() . $is_path),
-                                ],
-                                [
-                                    'closed' => false,
-                                    'name' => 'link',
-                                ],
-                            );
-                        endif;
+                        $is_return .= file_exists(__DIR__ . $is_path) ? orange_config_selector(
+                            [
+                                'rel' => 'stylesheet',
+                                'href' => esc_url(get_template_directory_uri() . $is_path),
+                            ],
+                            [
+                                'closed' => false,
+                                'name' => 'link',
+                            ],
+                        ) : '';
                     endif;
                     if (is_last_word($object[$i]['archive'], '.js')):
-                        if (file_exists(__DIR__ . $is_path)):
-                            $is_return .= orange_config_selector (
-                                [
-                                    'src' => esc_url(get_template_directory_uri() . $is_path),
-                                    'type' => is_true_key($object[$i], 'module') ? 'module' : '',
-                                ],
-                                [
-                                    'closed' => true,
-                                    'content' => '',
-                                    'name' => 'script',
-                                ],
-                            );
-                        endif;
+                        $is_return .= file_exists(__DIR__ . $is_path) ? orange_config_selector (
+                            [
+                                'src' => esc_url(get_template_directory_uri() . $is_path),
+                                'type' => is_true_key($object[$i], 'module') ? 'module' : '',
+                            ],
+                            [
+                                'closed' => true,
+                                'content' => '',
+                                'name' => 'script',
+                            ],
+                        ) : '';
                     endif;
                 endif;
             endfor;
@@ -619,13 +614,15 @@
                                     $y = 0;
                                     foreach ($value as $key => $value):
                                         $is_return .= !$y ? '' : ' ';
-                                        if (is_int($key)): else:
-                                            $is_return .= trim($key);
-                                            $is_return .= ': ';
-                                        endif;
-                                        $is_return .= trim($value);
-                                        if (is_int($key)): else:
-                                            $is_return .= ';';
+                                        if (is_true_variable($value)):
+                                            if (is_int($key)): else:
+                                                $is_return .= $key;
+                                                $is_return .= ': ';
+                                            endif;
+                                            $is_return .= $value;
+                                            if (is_int($key)): else:
+                                                $is_return .= ';';
+                                            endif;
                                         endif;
                                         $y++;
                                     endforeach;
@@ -709,19 +706,10 @@
                         $is_content .= orange_config_selector (
                             [
                                 'class' => 'main-content',
-                                'style' => [
-                                    'background-attachment' => 'scroll',
-                                    'background-image' => 'url(' . get_the_post_thumbnail_url() . ')',
-                                    'background-position' => 'center',
-                                    'background-repeat' => 'no-repeat',
-                                    'background-size' => 'cover',
-                                    'cursor' => 'pointer',
-                                    'height' => 'calc(100% - 1rem)',
-                                    'left' => 'calc(1rem / 2)',
-                                    'position' => 'absolute',
-                                    'top' => 'calc(1rem / 2)',
-                                    'width' => 'calc(100% - 1rem)',
-                                ],
+                                'style' => orange_style_background ([
+                                    'type' => 'thumbnail',
+                                    'url' => get_the_post_thumbnail_url()
+                                ]),
                             ],
                             [
                                 'closed' => true,
@@ -1200,8 +1188,8 @@
                 $is_return .= '</div>';
             $is_return .= '</footer>';
             $is_return .= orange_powered([
-                // 'date' => '2022-04-30',
-                'date' => '2022-02-28',
+                'date' => '2022-04-30',
+                // 'date' => '2022-02-28',
                 'powered' => 'Clockwork Orange Development',
                 'url' => 'https://clockworkorange.com.br/',
             ]);
@@ -1430,61 +1418,67 @@
             $is_return = '';
             if (is_true_key($object, 'type')):
                 if ($object['type'] === 'bloginfo'):
+                    $is_logo_path = '/images/logo.jpg';
+                    $is_header_path = '/images/header.jpg';
                     $is_return .= '<header>';
-                        $is_return .= '<div id=\'brand\'>';
-                            $is_path = '/images/logo.jpg';
-
-                            // FABIO
-
-                            if (file_exists(__DIR__ . $is_path)):
-                                $is_return .= '<picture>';
-                                    $is_return .= '<a href=' . home_url('/') . '>';
-                                        $is_return .= '<img';
-                                        $is_return .= ' src=\'' . get_template_directory_uri() . $is_path . '\'';
-                                        if (is_true_variable(get_bloginfo('name'))):
-                                            $is_return .= ' alt=';
-                                            $is_return .= '\'';
-                                                $is_return .= get_bloginfo('name');
-                                                if (is_true_variable(get_bloginfo('description'))):
-                                                    $is_return .= ' | ';
-                                                    $is_return .= get_bloginfo('description');
-                                                endif;
-                                            $is_return .= '\'';
-                                        endif;
-                                        $is_return .= '>';
-                                    $is_return .= '</a>';
-                                $is_return .= '</picture>';
-                            endif;
-
-                            $is_content = '';
-                            $is_content .= is_true_variable(get_bloginfo('name')) ? orange_text_content([
-                                'content' => get_bloginfo('name'),
-                                'url' => [
-                                    'href' => home_url('/'),
-                                ],
-                                'wrapper' => 'h1',
-                            ]) : '';
-
-                            $is_content .= is_true_variable(get_bloginfo('description')) ? orange_text_content([
-                                'content' => get_bloginfo('description'),
-                                'url' => [
-                                    'href' => home_url('/'),
-                                ],
-                                'wrapper' => [ 'p' ],
-                            ]) : '';
-
-                            $is_return .= is_true_variable(get_bloginfo('name')) ? orange_config_selector (
+                        $is_content = '';    
+                        $is_content .= file_exists(__DIR__ . $is_logo_path) ? orange_text_content([
+                            'content' => orange_config_selector (
                                 [
-                                    'id' => 'bloginfo',
+                                    'src' => get_template_directory_uri() . $is_logo_path,
+                                    'alt' => is_true_variable(get_bloginfo('name'))
+                                    ? get_bloginfo('name') . (is_true_variable(get_bloginfo('description')) ? ' | ' . get_bloginfo('description') : '')
+                                    : '',
                                 ],
                                 [
-                                    'closed' => true,
-                                    'content' => $is_content,
-                                    'name' => 'div',
+                                    'closed' => false,
+                                    'content' => '',
+                                    'name' => 'img',
                                 ],
-                            ) : '';
-
-                        $is_return .= '</div>';
+                            ),
+                            'url' => [ 'href' => home_url('/'), ],
+                            'wrapper' => 'picture',
+                        ]) : '';
+                        $is_bloginfo = '';
+                        $is_bloginfo .= is_true_variable(get_bloginfo('name')) ? orange_text_content([
+                            'content' => get_bloginfo('name'),
+                            'url' => [ 'href' => home_url('/'), ],
+                            'wrapper' => 'h1',
+                        ]) : '';
+                        $is_bloginfo .= is_true_variable(get_bloginfo('description')) ? orange_text_content([
+                            'content' => get_bloginfo('description'),
+                            'url' => [ 'href' => home_url('/'), ],
+                            'wrapper' => [ 'p' ],
+                        ]) : '';
+                        $is_content .= is_true_variable(get_bloginfo('name')) ? orange_config_selector (
+                            [
+                                'id' => 'bloginfo',
+                            ],
+                            [
+                                'closed' => true,
+                                'content' => $is_bloginfo,
+                                'name' => 'div',
+                            ],
+                        ) : '';
+                        $is_style = file_exists(__DIR__ . $is_header_path) ? orange_style_background ([
+                            'type' => 'normal',
+                            'url' => get_template_directory_uri() . $is_header_path,
+                        ]) : [];
+                        $is_style = array_merge($is_style, [
+                            'height' => variable::number['thumbnail']['height'],
+                        ]);
+                        $is_return .= orange_config_selector (
+                            [
+                                'id' => 'brand',
+                                'style' => $is_style,
+                            ],
+                            [
+                                'closed' => true,
+                                'content' => $is_content,
+                                'name' => 'div',
+                            ],
+                        );
+                        
                         $is_return .= '<div id=\'reservation\'>';
                             $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' id=\'bookingForm\' method=\'get\' name=\'bookingForm\' class=\'row g-3\' target=\'_blank\' accept-charset=\'utf-8\'>';
                                 
@@ -1838,11 +1832,36 @@
                 foreach ($is_DOM->getElementsByTagName($object['element']) as $is_key):
                     $is_array = [];
                     for ($y = 0; $y < sizeof($object['attribute']); $y++):
-                        $is_array += [$object['attribute'][$y] => $is_key->getAttribute($object['attribute'][$y])];
+                        $is_array += [ $object['attribute'][$y] => $is_key->getAttribute($object['attribute'][$y]) ];
                     endfor;
                     array_push($is_return, $is_array);
                 endforeach;
             endfor;
+            return $is_return;
+        };
+
+        function orange_style_background ($object) {
+            $is_return = is_true_key($object, 'url') ? [
+                'background-attachment' => 'scroll',
+                'background-image' => 'url(' . $object['url'] . ')',
+                'background-position' => 'center',
+                'background-repeat' => 'no-repeat',
+                'background-size' => 'cover',
+            ] : [];
+            if (is_true_key($object, 'type')):
+                $is_return = array_merge($is_return, is_first_word ($object['type'], 'normal') ? [
+                    'height' => '100%',
+                    'width' => '100%',
+                ] : []);
+                $is_return = array_merge($is_return, is_first_word ($object['type'], 'thumbnail') ? [
+                    'cursor' => 'pointer',
+                    'height' => 'calc(100% - 1rem)',
+                    'left' => 'calc(1rem / 2)',
+                    'position' => 'absolute',
+                    'top' => 'calc(1rem / 2)',
+                    'width' => 'calc(100% - 1rem)',
+                ] : []);
+            endif;
             return $is_return;
         };
 
@@ -1909,25 +1928,11 @@
                                         $is_replace .= $is_attrib[$i]['width'];
                                         $is_replace .= 'x';
                                         $is_replace .= $is_attrib[$i]['height'];
-                                        $is_style = [
-                                            'background-attachment' => 'scroll',
-                                            'background-image' => 'url(' . str_replace($is_replace, '', $is_attrib[$i]['src']) . ')',
-                                            'background-position' => 'center',
-                                            'background-repeat' => 'no-repeat',
-                                            'background-size' => 'cover',
-                                            'cursor' => 'pointer',
-                                            'height' => 'calc(100% - 1rem)',
-                                            'left' => 'calc(1rem / 2)',
-                                            'position' => 'absolute',
-                                            'top' => 'calc(1rem / 2)',
-                                            'width' => 'calc(100% - 1rem)',
-                                        ];
                                         $is_return .= orange_config_selector(
                                             [
                                                 'class' => 'thumbnail-content',
-                                                'style' => is_first_word($object['content'], '<iframe')
-                                                ? [ 'height' => '100%', 'width' => '100%' ]
-                                                : (is_first_word($object['content'], '<img') ? $is_style : []),
+                                                'style' => is_first_word($object['content'], '<iframe') ? [ 'height' => '100%', 'width' => '100%' ]
+                                                : (is_first_word($object['content'], '<img') ? orange_style_background ([ 'type' => 'thumbnail', 'url' => str_replace($is_replace, '', $is_attrib[$i]['src']) ]) : []),
                                             ],
                                             [
                                                 'closed' => false,
