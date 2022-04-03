@@ -528,6 +528,7 @@
                     [
                         'class' => 'side-button',
                         'id' => is_true_variable($is_array[$i]->id) ? trim($is_array[$i]->id) : '',
+                        'data-animation' => 'right',
                         'style' => [
                             'right' => '1rem',
                             trim($string) => 'calc(calc(3rem + 1rem) * ' . $i . ' + 1rem)',

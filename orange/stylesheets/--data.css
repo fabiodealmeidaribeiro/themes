@@ -5,6 +5,9 @@
 /* [data-animation='right'] { transform: translate3d(50px, 0, 0); } */
 /* [data-animation].animation { opacity: 1; transform: translate3d(0, 0, 0); } */
 
+[data-animation='right'] { transform: translate3d(0, 0, 0); }
+[data-animation='right'].animation { transform: translate3d(calc(-1 * var(--margin) / 2), 0, 0); }
+
 [data-transparent].transparent {
     -webkit-backdrop-filter: blur(var(--margin));
     -moz-backdrop-filter: blur(var(--margin));
