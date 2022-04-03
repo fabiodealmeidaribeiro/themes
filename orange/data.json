@@ -196,7 +196,7 @@
                     "target": false,
                     "title": "down",
                     "description": "",
-                    "url": "#footer"
+                    "url": ""
                 },
                 {
                     "id": "side-button-up",
@@ -204,7 +204,7 @@
                     "target": false,
                     "title": "up",
                     "description": "",
-                    "url": "#"
+                    "url": ""
                 }
             ]
         },

@@ -4,6 +4,8 @@
 
 @import '--container.css';
 
+@import '--data.css';
+
 @import '--drop.css';
 
 @import '--excerpt.css';

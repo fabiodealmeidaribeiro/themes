@@ -256,7 +256,7 @@
                         $is_return .= ' type=\'search\'';
                         $is_return .= ' value=\'' . get_search_query() . '\'';
                     $is_return .= '>';
-                    $is_return .= '<button class=\'btn btn-outline-secondary\' type=\'submit\'>';
+                    $is_return .= '<button class=\'btn btn-outline-secondary bg-white\' type=\'submit\'>';
                         $is_return .= ucfirst(trim($object['name']));
                     $is_return .= '</button>';
                 $is_return .= '</form>';
@@ -1515,20 +1515,21 @@
                             ],
                         );
                         $is_return .= '<div id=\'reservation\'>';
-                            $is_return .= '<div id=\'reservation-content\' data-animation=\'left\'>';
+                            $is_return .= '<div id=\'reservation-content\'>';
+                            // $is_return .= '<div id=\'reservation-content\' data-animation=\'left\'>';
 
                                 $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' method=\'get\' target=\'_blank\'>';
 
                                     $is_return .= '<div class=\'input-group\' id=\'reservation-date\'>';
                                             $is_return .= '<span class=\'input-group-text\'>';
-                                                $is_return .= 'Data de chegada';
+                                                $is_return .= __('Data de chegada');
                                             $is_return .= '</span>';
                                             $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'' . '' . '\'>';
                                     $is_return .= '</div>';
 
                                     $is_return .= '<div class=\'input-group\' id=\'reservation-number\'>';
                                             $is_return .= '<span class=\'input-group-text\'>';
-                                                $is_return .= 'Número de noites';
+                                                $is_return .= __('Número de noites');
                                             $is_return .= '</span>';
                                             $is_return .= '<select class=\'form-control\' name=\'nights\'>';
                                                 for ($i = 0; $i < 31; $i++):
@@ -1544,7 +1545,7 @@
 
                                     $is_return .= '<div id=\'reservation-check\'>';
                                         $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>';
-                                            $is_return .= 'Checar disponibilidade';
+                                            $is_return .= __('Checar disponibilidade');
                                         $is_return .= '</button>';
                                     $is_return .= '</div>';
 

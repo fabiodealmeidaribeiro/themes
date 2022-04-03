@@ -5,6 +5,9 @@
 *
 {
   box-sizing: border-box;
+  -webkit-transition: var(--transition);
+  -moz-transition: var(--transition);
+  -o-transition: var(--transition);
   transition: var(--transition);
 }
 

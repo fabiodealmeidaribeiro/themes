@@ -36,6 +36,7 @@
   justify-content:center;
   padding: var(--margin);
 }
+
 #container>header>#reservation>#reservation-content,
 #container>header>#reservation>#reservation-content>form,
 #container>header>#reservation>#reservation-content>form>#reservation-date,

@@ -1,0 +1,14 @@
+@import '--root.css';
+
+/* [data-animation] { opacity: 0; } */
+/* [data-animation='left'] { transform: translate3d(-50px, 0, 0); } */
+/* [data-animation='right'] { transform: translate3d(50px, 0, 0); } */
+/* [data-animation].animation { opacity: 1; transform: translate3d(0, 0, 0); } */
+
+[data-transparent].transparent {
+    -webkit-backdrop-filter: blur(var(--margin));
+    -moz-backdrop-filter: blur(var(--margin));
+    -o-backdrop-filter: blur(var(--margin));
+    backdrop-filter: blur(var(--margin));
+    background-color: rgba(255, 255, 255, calc(1 / 3));
+}
