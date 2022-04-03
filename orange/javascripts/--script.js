@@ -30,4 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
     orange_add_remove_classes({ classes: [ 'active', ], elements: [ '.current-cat>a', '.current_page_item>a' ], method: 'add', });
     orange_lightbox_carousel();
     // orange_lightbox_thumbnail();
+    
+
+    if (window.scrollY === 0) {
+
+        console.log('fabio');
+
+    }
+
+
+
+
 });

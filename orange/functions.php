@@ -56,14 +56,22 @@
         });
 
         add_action('wp_head', function () {
-            echo '<link';
-                echo ' rel=\'Shortcut Icon\'';
-                echo ' type=\'image/x-icon\'';
-                echo ' href=\'';
-                    echo get_bloginfo('wpurl');
-                    echo 'http://cdn3.wpbeginner.com/favicon.ico';
-                echo '\'';
-            echo '/>';
+            $is_ico_path = '/images/favicon.ico';
+            echo file_exists(__DIR__ . $is_ico_path) ? orange_config_selector (
+                [
+                    'rel' => [
+                        'Shortcut',
+                        'Icon',
+                    ],
+                    'type' => 'image/x-icon',
+                    'href' => get_template_directory_uri() . $is_ico_path,
+                ],
+                [
+                    'closed' => false,
+                    'content' => '',
+                    'name' => 'link',
+                ],
+            ) : '';
         });
 
         add_filter('excerpt_more', function () {
@@ -248,7 +256,9 @@
                         $is_return .= ' type=\'search\'';
                         $is_return .= ' value=\'' . get_search_query() . '\'';
                     $is_return .= '>';
-                    $is_return .= '<button class=\'btn btn-outline-secondary\' type=\'submit\'>' . ucfirst(trim($object['name'])) . '</button>';
+                    $is_return .= '<button class=\'btn btn-outline-secondary\' type=\'submit\'>';
+                        $is_return .= ucfirst(trim($object['name']));
+                    $is_return .= '</button>';
                 $is_return .= '</form>';
             endif;
             return $is_return;
@@ -288,7 +298,10 @@
                         $is_keyword .= trim($JSON->app->meta->genre[$y]);
                         $is_keyword .= is_true_variable($JSON->app->meta->place[$z]) ? ' ' : '';
                         $is_keyword .= trim($JSON->app->meta->place[$z]);
-                        $is_keyword .= $x < sizeof($JSON->app->meta->object) - 1 || $y < sizeof($JSON->app->meta->genre) - 1 || $z < sizeof($JSON->app->meta->place) - 1 ? ', ' : '';
+                        $is_keyword .=
+                        $x < sizeof($JSON->app->meta->object) - 1 ||
+                        $y < sizeof($JSON->app->meta->genre) - 1 ||
+                        $z < sizeof($JSON->app->meta->place) - 1 ? ', ' : '';
                     endfor;
                 endfor;
             endfor;
@@ -401,7 +414,9 @@
                 for ($i = 0; $i < sizeof($is_array); $i++):
                     $is_index = trim($is_array[$i]);
                     $is_replace = '';
+                    $is_replace .= '<em>';
                     $is_replace .= $is_index;
+                    $is_replace .= '</em>';
                     $is_return = str_replace($is_index, $is_replace, $is_return);
                 endfor;
             endif;
@@ -423,9 +438,9 @@
             $is_content = str_replace('</li>', '</p></li>', $is_content);
             $is_content = str_replace('<p><p>', '<p>', $is_content);
             $is_content = str_replace('</p></p>', '</p>', $is_content);
-            // $is_content = is_true_variable($JSON->app->highlight)
-            // ? orange_highlight([ 'array' => $JSON->app->highlight, 'content' => $is_content, ])
-            // : $is_content;
+            $is_content = is_true_variable($JSON->app->highlight)
+            ? orange_highlight([ 'array' => $JSON->app->highlight, 'content' => $is_content, ])
+            : $is_content;
             $is_return .= is_true_key ($object, 'content') ? $is_content : '';
             $is_return .= is_true_key ($object, 'url') ? '</a>' : '';
             $is_return .= is_true_key ($object, 'wrapper') ? orange_wrapper($object['wrapper'], 'closed') : '';
@@ -1970,103 +1985,124 @@
         };
 
         function orange_drop_list ($object) {
-            $is_return = '';
             $is_container = '';
+            $is_array = [];
             if (is_true_key($object, 'array')):
                 for ($i = 0; $i < sizeof($object['array']); $i++):
-                    $is_content = '';
                     if (is_true_variable($object['array'][$i]->name)):
-                        $is_content .= is_true_variable($object['array'][$i]->url) ? orange_config_selector (
-                            [
-                                'href' => trim($object['array'][$i]->url),
-                                'target' => '_blank',
-                            ],
-                            [
-                                'closed' => false,
-                                'content' => '',
-                                'name' => 'a',
-                            ],
-                        ) : '';
-                        $is_content .= orange_config_selector (
-                            [
-                                'class' => 'drop',
-                                'style' => [
-                                    'height' => variable::number['drop']['height'],
-                                    'width' => variable::number['drop']['width'],
-                                ],
-                            ],
-                            [
-                                'closed' => true,
-                                'content' => orange_config_selector (
-                                    [
-                                        'name' => trim(strtolower($object['array'][$i]->name)),
-                                    ],
-                                    [
-                                        'closed' => true,
-                                        'content' => '',
-                                        'name' => 'ion-icon',
-                                    ],
-                                ),
-                                'name' => 'div',
-                            ],
-                        );
-                        $is_content .= is_true_variable($object['array'][$i]->url) ? '</a>' : '';
-                        $is_content .= is_true_variable($object['array'][$i]->title) ? orange_config_selector (
-                            [
-                                'style' => [
-                                    'width' => '100%',
-                                    'text-align' => 'center',
-                                    'margin' => '.5rem 0 0 0',
-                                ],
-                            ],
-                            [
-                                'closed' => true,
-                                'content' => orange_text_content([
-                                    'content' => trim(ucfirst(__($object['array'][$i]->title))),
-                                    'wrapper' => [ 'p' ],
-                                ]),
-                                'name' => 'div',
-                            ],
-                        ) : '';
-                        $is_margin = '';
-                        $is_margin .= ' 0';
-                        $is_margin .= ' calc(' . variable::number['margin'] . ' / 2)';
-                        $is_margin .= ' ' . variable::number['margin'];
-                        $is_margin .= ' calc(' . variable::number['margin'] . ' / 2)';
-                        $is_container .= orange_config_selector (
-                            [
-                                'style' => [
-                                    'align-items' => 'center',
-                                    'display' => 'flex',
-                                    'flex-direction' => 'column',
-                                    'margin' => $is_margin,
-                                    'width' => variable::number['drop']['width'],
-                                ],
-                            ],
-                            [
-                                'closed' => true,
-                                'content' => $is_content,
-                                'name' => 'div',
-                            ],
-                        );
+                        if (is_true_variable($object['array'][$i]->title)):
+                            array_push($is_array, $object['array'][$i]);
+                        endif;
                     endif;
                 endfor;
-                $is_return .= orange_config_selector (
+            endif;
+            for ($i = 0; $i < sizeof($is_array); $i++):
+                $is_content = '';
+                $is_content .= is_true_variable($is_array[$i]->url) ? orange_config_selector (
                     [
+                        'href' => trim($is_array[$i]->url),
+                        'target' => is_true_variable($is_array[$i]->target) ? '_blank' : '',
+                    ],
+                    [
+                        'closed' => false,
+                        'content' => '',
+                        'name' => 'a',
+                    ],
+                ) : '';
+                $is_content .= orange_config_selector (
+                    [
+                        'class' => 'drop',
                         'style' => [
-                            'display' => 'flex',
-                            'flex-wrap' => 'wrap',
-                            'justify-content' => 'center',
+                            'height' => variable::number['drop']['height'],
+                            'width' => variable::number['drop']['width'],
                         ],
                     ],
                     [
                         'closed' => true,
-                        'content' => $is_container,
+                        'content' => orange_config_selector (
+                            [
+                                'name' => trim(strtolower($is_array[$i]->name)),
+                            ],
+                            [
+                                'closed' => true,
+                                'content' => '',
+                                'name' => 'ion-icon',
+                            ],
+                        ),
                         'name' => 'div',
                     ],
                 );
-            endif;
-            return $is_return;
+                $is_content .= is_true_variable($is_array[$i]->url) ? '</a>' : '';
+                $is_content .= orange_config_selector (
+                    [
+                        'style' => [
+                            'width' => '100%',
+                            'text-align' => 'center',
+                            'margin' => '.5rem 0 0 0',
+                        ],
+                    ],
+                    [
+                        'closed' => true,
+                        'content' => orange_text_content([
+                            'content' => trim(ucfirst($is_array[$i]->title)),
+                            'wrapper' => [ 'p' ],
+                        ]),
+                        'name' => 'div',
+                    ],
+                );
+                $is_content .= is_true_variable($is_array[$i]->description) ? orange_config_selector (
+                    [
+                        'style' => [
+                            'width' => '100%',
+                            'text-align' => 'center',
+                            'margin' => '0',
+                        ],
+                    ],
+                    [
+                        'closed' => true,
+                        'content' => orange_text_content([
+                            'content' => trim(ucfirst($is_array[$i]->description)),
+                            'wrapper' => [ 'p', 'em' ],
+                        ]),
+                        'name' => 'div',
+                    ],
+                ) : '';
+                $is_margin = '';
+                $is_margin .= ' 0';
+                $is_margin .= ' calc(' . variable::number['margin'] . ' / 2)';
+                $is_margin .= ' ' . variable::number['margin'];
+                $is_margin .= ' calc(' . variable::number['margin'] . ' / 2)';
+                $is_container .= orange_config_selector (
+                    [
+                        'style' => [
+                            'align-items' => 'center',
+                            'display' => 'flex',
+                            'flex-direction' => 'column',
+                            'margin' => $is_margin,
+                            'width' => variable::number['drop']['width'],
+                        ],
+                    ],
+                    [
+                        'closed' => true,
+                        'content' => $is_content,
+                        'name' => 'div',
+                    ],
+                );
+            endfor;
+            return orange_config_selector (
+                [
+                    'style' => [
+                        'display' => 'flex',
+                        'flex-wrap' => 'wrap',
+                        'justify-content' => 'center',
+                    ],
+                ],
+                [
+                    'closed' => true,
+                    'content' => $is_container,
+                    'name' => 'div',
+                ],
+            );
         };
 
         function orange_drop_page ($object) {

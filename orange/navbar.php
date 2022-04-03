@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
 <div class="container-fluid">
 <a class="d-lg-none navbar-brand" href="<?php echo home_url( '/' ) ?>"><?php echo get_bloginfo('name'); ?></a>
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

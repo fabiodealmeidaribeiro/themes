@@ -8,19 +8,17 @@
   transition: var(--transition);
 }
 
+html
+{
+  scroll-behavior: smooth;
+}
+
 body,
 html
 {
   background-color: var(--color-purple);
   margin: 0;
   padding: 0;
-  scroll-behavior: smooth;
-}
-
-nav
-{
-  background-color: var(--content-background);
-  box-shadow: var(--box-shadow);
 }
 
 main { margin: 0 1rem; }
