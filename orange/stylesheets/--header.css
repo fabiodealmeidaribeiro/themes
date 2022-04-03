@@ -32,31 +32,32 @@
 #container>header>#reservation
 {
   background-color: white;
+  display:flex;
+  justify-content:center;
   padding: var(--margin);
 }
-#container>header>#reservation>form
+#container>header>#reservation>#reservation-content,
+#container>header>#reservation>#reservation-content>form,
+#container>header>#reservation>#reservation-content>form>#reservation-date,
+#container>header>#reservation>#reservation-content>form>#reservation-number,
+#container>header>#reservation>#reservation-content>form>#reservation-check
 {
-  display: flex;
-  justify-content: center;
-  margin: 0;
-  width: 100%;
+  display: inline-flex;
 }
-#container>header>#reservation>form>#reservation-date,
-#container>header>#reservation>form>#reservation-number,
-#container>header>#reservation>form>#reservation-check
-{
-  flex: 0 0 auto;
-  width: auto;  
-  padding: 0;
-}
-#container>header>#reservation>form>#reservation-date,
-#container>header>#reservation>form>#reservation-number
+#container>header>#reservation>#reservation-content>form>#reservation-date,
+#container>header>#reservation>#reservation-content>form>#reservation-number
 {
   margin: 0 var(--margin) 0 0;
 }
-#container>header>#reservation>form>#reservation-check
+#container>header>#reservation>#reservation-content>form>#reservation-check
 {
   margin: 0;
+}
+#container>header>#reservation>#reservation-content>form>#reservation-date,
+#container>header>#reservation>#reservation-content>form>#reservation-number,
+#container>header>#reservation>#reservation-content>form>#reservation-check
+{
+  width: unset;
 }
 main>article>header { margin: 2rem 0 0 0; }
 @media (max-width: 575.98px) { }
@@ -77,22 +78,20 @@ main>article>header { margin: 2rem 0 0 0; }
   {
     text-align: center;
   }
-  #container>header>#reservation>form
+  #container>header>#reservation>#reservation-content>form
   {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
   }
-  #container>header>#reservation>form>#reservation-date,
-  #container>header>#reservation>form>#reservation-number
+  #container>header>#reservation>#reservation-content>form>#reservation-date,
+  #container>header>#reservation>#reservation-content>form>#reservation-number
   {
-    display: block;
-    width: calc(100% - var(--margin) * 1);
     margin: 0 0 var(--margin) 0;
+    width: 100%;
   }
-  #container>header>#reservation>form>#reservation-check
+  #container>header>#reservation>#reservation-content>form>#reservation-check
   {
-    display: block;
     margin: 0;
   }
 }

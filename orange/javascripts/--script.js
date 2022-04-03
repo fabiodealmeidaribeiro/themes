@@ -25,20 +25,22 @@ import {
 document.addEventListener("DOMContentLoaded", () => {
     orange_add_remove_classes({ classes: [ 'align-items-stretch', 'd-flex', 'g-0', 'row', ], elements: [ '#footer-row', ], method: 'add', });
     orange_add_remove_classes({ classes: [ 'col-lg' ], elements: [ 'article', '.post-highlight', '.post-postcustom', '.widget-container', ], method: 'add', });
+
     // window.document.getElementById('side-btn-up').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth', }));
+
     orange_add_remove_classes({ classes: [ 'nav-link', ], elements: [ '.nav-item>a', ], method: 'add', });
     orange_add_remove_classes({ classes: [ 'active', ], elements: [ '.current-cat>a', '.current_page_item>a' ], method: 'add', });
     orange_lightbox_carousel();
+
     // orange_lightbox_thumbnail();
-    
 
-    if (window.scrollY === 0) {
+    // const position = document.querySelector('nav').getBoundingClientRect();
+    // console.log(position);
 
-        console.log('fabio');
-
-    }
-
-
-
+    // window.addEventListener("scroll", () => {
+    //     window.scrollY <= 60
+    //     ? document.querySelector('nav').style.backgroundColor = 'red'
+    //     : document.querySelector('nav').style.backgroundColor = '#ff';
+    // });
 
 });

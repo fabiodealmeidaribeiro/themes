@@ -1515,38 +1515,41 @@
                             ],
                         );
                         $is_return .= '<div id=\'reservation\'>';
-                            $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' id=\'bookingForm\' method=\'get\' name=\'bookingForm\' class=\'row g-3\' target=\'_blank\' accept-charset=\'utf-8\'>';
-                                $is_return .= '<div id=\'reservation-date\'>';
-                                    $is_return .= '<div class=\'input-group\'>';
-                                        $is_return .= '<span class=\'input-group-text\'>';
-                                            $is_return .= 'Data de chegada';
-                                        $is_return .= '</span>';
-                                        $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'' . '' . '\'>';
+                            $is_return .= '<div id=\'reservation-content\' data-animation=\'left\'>';
+
+                                $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' method=\'get\' target=\'_blank\'>';
+
+                                    $is_return .= '<div class=\'input-group\' id=\'reservation-date\'>';
+                                            $is_return .= '<span class=\'input-group-text\'>';
+                                                $is_return .= 'Data de chegada';
+                                            $is_return .= '</span>';
+                                            $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'' . '' . '\'>';
                                     $is_return .= '</div>';
-                                $is_return .= '</div>';
-                                $is_return .= '<div id=\'reservation-number\'>';
-                                    $is_return .= '<div class=\'input-group\'>';
-                                        $is_return .= '<span class=\'input-group-text\'>';
-                                            $is_return .= 'Número de noites';
-                                        $is_return .= '</span>';
-                                        $is_return .= '<select class=\'form-control\' name=\'nights\'>';
-                                            for ($i = 0; $i < 31; $i++):
-                                                $is_return .= '<option';
-                                                    $is_return .= ' value=\'' . ($i + 1) . '\'';
-                                                    $is_return .= !$i ? ' selected' : '';
-                                                $is_return .= '>';
-                                                $is_return .= $i + 1;
-                                                $is_return .= '</option>';
-                                            endfor;
-                                        $is_return .= '</select>';
+
+                                    $is_return .= '<div class=\'input-group\' id=\'reservation-number\'>';
+                                            $is_return .= '<span class=\'input-group-text\'>';
+                                                $is_return .= 'Número de noites';
+                                            $is_return .= '</span>';
+                                            $is_return .= '<select class=\'form-control\' name=\'nights\'>';
+                                                for ($i = 0; $i < 31; $i++):
+                                                    $is_return .= '<option';
+                                                        $is_return .= ' value=\'' . ($i + 1) . '\'';
+                                                        $is_return .= !$i ? ' selected' : '';
+                                                    $is_return .= '>';
+                                                    $is_return .= $i + 1;
+                                                    $is_return .= '</option>';
+                                                endfor;
+                                            $is_return .= '</select>';
                                     $is_return .= '</div>';
-                                $is_return .= '</div>';
-                                $is_return .= '<div id=\'reservation-check\'>';
-                                    $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>';
-                                        $is_return .= 'Checar disponibilidade';
-                                    $is_return .= '</button>';
-                                $is_return .= '</div>';
-                            $is_return .= '</form>';
+
+                                    $is_return .= '<div id=\'reservation-check\'>';
+                                        $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>';
+                                            $is_return .= 'Checar disponibilidade';
+                                        $is_return .= '</button>';
+                                    $is_return .= '</div>';
+
+                                $is_return .= '</form>';
+                            $is_return .= '</div>';
                         $is_return .= '</div>';
                     $is_return .= '</header>';
                 endif;
