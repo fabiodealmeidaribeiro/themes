@@ -2,23 +2,21 @@
     "app": {
         "attention": [
             "O nosso horário de atendimento para orçamentos e reservas é de segunda a sexta, das 10h00 às 17h50.",
-            "Caso prefira, verifique as disponibilidades no link abaixo."
+            "Caso prefira, verifique as disponibilidades a abaixo."
         ],
         "category": {
             "title": "",
             "exclude": [
-                "3",
+                "5",
                 "4",
-                "5"
+                "3"
             ],
             "main": [
                 "9"
             ],
             "widget": {
-                "attention": [
-                    "3"
-                ],
                 "navigation": [
+                    "3",
                     "4",
                     "5"
                 ]
@@ -227,10 +225,6 @@
                 "text": "Ol%C3%A1!%20Vim%20do%20site%20do%20Pura%20Vida%2C%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20hostel."
             }
         },
-        "clickhere": {
-            "title": "Verificar as disponibilidades!",
-            "href": "booking.hqbeds.com.br/puravida"
-        },
         "easiness": [
             {
                 "id": "",
@@ -331,26 +325,6 @@
             "title": "Free tours",
             "description": "",
             "url": ""
-        }
-    ],
-    "news": [
-        {
-            "title": "Imperdível, sábado, dia 19 de março de 2022, às 22h00, a melhor festa gótica no party hostel mais incrível da cidade maravilhosa do rio de janeiro!",
-            "sub-title": "Entrada permitida somente para maiores de 18 anos.",
-            "date": "19-03-2022",
-            "post": ""
-        },
-        {
-            "title": "",
-            "sub-title": "",
-            "date": "",
-            "post": ""
-        },
-        {
-            "title": "",
-            "sub-title": "",
-            "date": "",
-            "post": ""
         }
     ]
 }

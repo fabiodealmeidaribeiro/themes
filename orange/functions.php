@@ -531,7 +531,7 @@
                         'name' => 'a',
                     ],
                 ) : '';
-                $is_return .= orange_config_selector(
+                $is_return .= orange_config_selector (
                     [
                         'class' => 'side-button',
                         'id' => is_true_variable($is_array[$i]->id) ? trim($is_array[$i]->id) : '',
@@ -543,7 +543,7 @@
                     ],
                     [
                         'closed' => true,
-                        'content' => orange_config_selector(
+                        'content' => orange_config_selector (
                             [
                                 'name' => trim($is_array[$i]->name),
                             ],
@@ -1101,19 +1101,24 @@
                                 $is_return .= is_true_variable($JSON->app->attention[$i]) ? '<p>' . trim($JSON->app->attention[$i]) . '</p>' : '';
                             endfor;
                         endif;
-                        if (is_true_variable($JSON->hostel->clickhere->title) && is_true_variable($JSON->hostel->clickhere->href)):
-                            $is_return .= '<p>';
-                                $is_return .= '<b>';
-                                    $is_return .= '<a href=\'https://' . str_replace(['https://', 'http://' ], '', trim($JSON->hostel->clickhere->href)) . '\' target=\'_blank\'>';
-                                        $is_return .= trim($JSON->hostel->clickhere->title);
-                                    $is_return .= '</a>';
-                                $is_return .= '</b>';
-                            $is_return .= '</p>';
-                        endif;
-                        $is_return .= orange_category_widget_post_list($JSON->app->category->widget->attention);
+                        $is_return .= orange_config_selector (
+                            [ 'class' => 'widget-wrapper' ],
+                            [
+                                'closed' => true,
+                                'content' => orange_config_selector (
+                                    [
+                                        'id' => 'reservation-content',
+                                    ],
+                                    [
+                                        'closed' => true,
+                                        'content' => orange_reservation_form(),
+                                        'name' => 'div',
+                                    ],
+                                ),
+                                'name' => 'div',
+                            ],
+                        );
                     $is_return .= '</div>';
-
-                    
                     $is_return .= is_true_variable($JSON->app->sidebar->up) ? orange_config_selector (
                         [
                             'class' => 'widget-container',
@@ -1169,12 +1174,7 @@
                         [
                             'closed' => true,
                             'content' => orange_config_selector (
-                                [
-                                    'src' => trim($JSON->hostel->maps),
-                                    'style' => [
-                                        'border' => '0',
-                                    ],
-                                ],
+                                [ 'src' => trim($JSON->hostel->maps), ],
                                 [
                                     'closed' => true,
                                     'content' => '',
@@ -1188,7 +1188,7 @@
                         'content' => trim($JSON->hostel->address),
                         'wrapper' => [ 'address', 'p' ],
                     ]) : '';
-                    $is_return .= is_true_variable($is_widget_localization) ? orange_config_selector (
+                    $is_return .= is_true_variable($is_widget_localization) ? orange_config_selector(
                         [
                             'class' => 'widget-container',
                             'id' => 'widget-localization',
@@ -1458,6 +1458,39 @@
             return $is_return;
         };
 
+        function orange_reservation_form () {
+            $is_return = '';
+            $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' method=\'get\' target=\'_blank\'>';
+                $is_return .= '<div class=\'input-group\' id=\'reservation-date\'>';
+                        $is_return .= '<span class=\'input-group-text\'>';
+                            $is_return .= __('Chegada');
+                        $is_return .= '</span>';
+                        $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
+                $is_return .= '</div>';
+                $is_return .= '<div class=\'input-group\' id=\'reservation-number\'>';
+                        $is_return .= '<span class=\'input-group-text\'>';
+                            $is_return .= __('Noites');
+                        $is_return .= '</span>';
+                        $is_return .= '<select class=\'form-control\' name=\'nights\'>';
+                            for ($i = 0; $i < 31; $i++):
+                                $is_return .= '<option';
+                                    $is_return .= ' value=\'' . ($i + 1) . '\'';
+                                    $is_return .= !$i ? ' selected' : '';
+                                $is_return .= '>';
+                                $is_return .= $i + 1;
+                                $is_return .= '</option>';
+                            endfor;
+                        $is_return .= '</select>';
+                $is_return .= '</div>';
+                $is_return .= '<div id=\'reservation-check\'>';
+                    $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>';
+                        $is_return .= __('Checar disponibilidade');
+                    $is_return .= '</button>';
+                $is_return .= '</div>';
+            $is_return .= '</form>';
+            return $is_return;
+        }
+
         function orange_header ($object) {
             $is_return = '';
             if (is_true_key($object, 'type')):
@@ -1511,6 +1544,8 @@
                         $is_style = array_merge($is_style, [
                             'height' => variable::number['thumbnail']['height'],
                         ]);
+
+
                         $is_return .= orange_config_selector (
                             [
                                 'id' => 'brand',
@@ -1522,43 +1557,25 @@
                                 'name' => 'div',
                             ],
                         );
-                        $is_return .= '<div id=\'reservation\'>';
-                            $is_return .= '<div id=\'reservation-content\'>';
-
-                                $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' method=\'get\' target=\'_blank\'>';
-
-                                    $is_return .= '<div class=\'input-group\' id=\'reservation-date\'>';
-                                            $is_return .= '<span class=\'input-group-text\'>';
-                                                $is_return .= __('Data de chegada');
-                                            $is_return .= '</span>';
-                                            $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'' . '' . '\'>';
-                                    $is_return .= '</div>';
-
-                                    $is_return .= '<div class=\'input-group\' id=\'reservation-number\'>';
-                                            $is_return .= '<span class=\'input-group-text\'>';
-                                                $is_return .= __('Número de noites');
-                                            $is_return .= '</span>';
-                                            $is_return .= '<select class=\'form-control\' name=\'nights\'>';
-                                                for ($i = 0; $i < 31; $i++):
-                                                    $is_return .= '<option';
-                                                        $is_return .= ' value=\'' . ($i + 1) . '\'';
-                                                        $is_return .= !$i ? ' selected' : '';
-                                                    $is_return .= '>';
-                                                    $is_return .= $i + 1;
-                                                    $is_return .= '</option>';
-                                                endfor;
-                                            $is_return .= '</select>';
-                                    $is_return .= '</div>';
-
-                                    $is_return .= '<div id=\'reservation-check\'>';
-                                        $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>';
-                                            $is_return .= __('Checar disponibilidade');
-                                        $is_return .= '</button>';
-                                    $is_return .= '</div>';
-
-                                $is_return .= '</form>';
-                            $is_return .= '</div>';
-                        $is_return .= '</div>';
+                        $is_return .= orange_config_selector (
+                            [
+                                'id' => 'reservation',
+                            ],
+                            [
+                                'closed' => true,
+                                'content' => orange_config_selector (
+                                    [
+                                        'id' => 'reservation-content',
+                                    ],
+                                    [
+                                        'closed' => true,
+                                        'content' => orange_reservation_form(),
+                                        'name' => 'div',
+                                    ],
+                                ),
+                                'name' => 'div',
+                            ],
+                        );
                     $is_return .= '</header>';
                 endif;
                 if ($object['type'] === 'category'):

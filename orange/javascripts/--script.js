@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(window.document.querySelector('nav').getBoundingClientRect()['height']);
     });
     window.document.querySelector('#side-button-up').addEventListener('click', () => {
+        // window.document.querySelector('nav').querySelector('div').querySelector('button').classList.add('collapsed');
+        // window.document.querySelector('nav').querySelector('div').querySelector('button').classList.remove('collapsed');
+        // window.document.querySelector('nav').querySelector('div').querySelector('button').classList.toggle('collapsed');
         window.scrollTo({
             top : topPosition + 'px',
             behavior : 'smooth',
@@ -65,14 +68,4 @@ document.addEventListener("DOMContentLoaded", () => {
             element.classList.remove('animation');
         });
     });
-    // window.addEventListener('scroll', () => {
-    //     const windowTop = window.pageYOffset + window.innerHeight / 4 * 1;
-    //     document.querySelectorAll('[data-animation]').forEach((element) => {
-    //         if (windowTop > element.offsetTop) {
-    //             element.classList.add('animation');
-    //         } else { 
-    //             element.classList.remove('animation');
-    //         }
-    //     });
-    // });
 });

@@ -14,6 +14,7 @@
   margin: 0 var(--margin) 0 0;
   width: calc(var(--margin) * 6);
 }
+#container>header>#brand>picture>a,
 #container>header>#brand>picture>a>img
 {
   width: 100%;
@@ -36,14 +37,12 @@
   justify-content:center;
   padding: var(--margin);
 }
-
-#container>header>#reservation>#reservation-content,
-#container>header>#reservation>#reservation-content>form,
 #container>header>#reservation>#reservation-content>form>#reservation-date,
 #container>header>#reservation>#reservation-content>form>#reservation-number,
 #container>header>#reservation>#reservation-content>form>#reservation-check
 {
   display: inline-flex;
+  width: unset;
 }
 #container>header>#reservation>#reservation-content>form>#reservation-date,
 #container>header>#reservation>#reservation-content>form>#reservation-number
@@ -54,15 +53,31 @@
 {
   margin: 0;
 }
-#container>header>#reservation>#reservation-content>form>#reservation-date,
-#container>header>#reservation>#reservation-content>form>#reservation-number,
-#container>header>#reservation>#reservation-content>form>#reservation-check
-{
-  width: unset;
-}
 main>article>header { margin: 2rem 0 0 0; }
 @media (max-width: 575.98px) { }
-@media (max-width: 767.98px) { }
+@media (max-width: 767.98px) {
+  #container>header>#reservation>#reservation-content,
+  #container>header>#reservation>#reservation-content>form
+  {
+    width: 100%;
+  }
+  #container>header>#reservation>#reservation-content>form
+  {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  #container>header>#reservation>#reservation-content>form>#reservation-date,
+  #container>header>#reservation>#reservation-content>form>#reservation-number
+  {
+    margin: 0 0 var(--margin) 0;
+    width: 100%;
+  }
+  #container>header>#reservation>#reservation-content>form>#reservation-check
+  {
+    margin: 0;
+  }
+}
 @media (max-width: 991.98px) {
   #container>header>#brand
   {
@@ -78,22 +93,6 @@ main>article>header { margin: 2rem 0 0 0; }
   #container>header>#brand>#bloginfo>p
   {
     text-align: center;
-  }
-  #container>header>#reservation>#reservation-content>form
-  {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #container>header>#reservation>#reservation-content>form>#reservation-date,
-  #container>header>#reservation>#reservation-content>form>#reservation-number
-  {
-    margin: 0 0 var(--margin) 0;
-    width: 100%;
-  }
-  #container>header>#reservation>#reservation-content>form>#reservation-check
-  {
-    margin: 0;
   }
 }
 @media (max-width: 1199.98px) { }
