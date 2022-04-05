@@ -19,16 +19,11 @@
 {
   width: 100%;
 }
-#container>header>#brand>#bloginfo>h1>a,
-#container>header>#brand>#bloginfo>p>a
+#container>header>#brand>#bloginfo>p>a,
+#container>header>#brand>#bloginfo>h1>a
 {
   color: var(--color-white);
-  text-shadow: var(--box-shadow);
-}
-#container>header>#brand>#bloginfo:hover>p>a,
-#container>header>#brand>#bloginfo:hover>h1>a
-{
-  color: var(--dark-color-purple);
+  text-shadow: 1px 1px 1px black;
 }
 #container>header>#reservation
 {
