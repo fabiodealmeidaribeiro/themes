@@ -27,7 +27,7 @@
 {
     opacity: 1;
     visibility: visible;
-    z-index: 9;
+    z-index: 9999;
 }
 
 @media (max-width: 575.98px) { }

@@ -202,6 +202,7 @@
             ];
             const attribute = [
                 'alt',
+                'allow',
                 'height',
                 'src',
                 'title',
@@ -331,25 +332,31 @@
         };
 
         function orange_youtube_channel ($object) {
-            $is_random = array_rand($object);
             $is_return = '';
-            $is_return .= '<iframe';
-                $is_return .= ' src=\'';
-                    $is_return .= str_replace([
-                        'https://www.youtube.com/watch?v=',
-                        'https://youtu.be/',
-                    ], 'https://www.youtube.com/embed/', trim($object[$is_random]->src));
-                    $is_return .= '?controls=0';
-                $is_return .= '\'';
-                $is_return .= ' allow=\'';
-                    $is_return .= ' accelerometer;';
-                    $is_return .= ' autoplay;';
-                    $is_return .= ' clipboard-write;';
-                    $is_return .= ' encrypted-media;';
-                    $is_return .= ' gyroscope;';
-                    $is_return .= ' picture-in-picture';
-                $is_return .= '\'';
-            $is_return .= '></iframe>';
+            $is_random = array_rand($object);
+            $is_src = str_replace([
+                'https://www.youtube.com/watch?v=',
+                'https://youtu.be/',
+            ], 'https://www.youtube.com/embed/', trim($object[$is_random]->src));
+            $is_src .= '?controls=0';
+            $is_return .= orange_config_selector (
+                [
+                    'allow' => [
+                        'accelerometer;',
+                        'autoplay;',
+                        'clipboard-write;',
+                        'encrypted-media;',
+                        'gyroscope;',
+                        'picture-in-picture;',
+                    ],
+                    'src' => $is_src,
+                ],
+                [
+                    'closed' => true,
+                    'content' => '',
+                    'name' => 'iframe',
+                ],
+            );
             return $is_return;
         };
         
@@ -421,7 +428,7 @@
                 endfor;
             endif;
             return $is_return;
-        }
+        };
 
         function orange_text_content ($object) {
             global $JSON;
@@ -528,7 +535,7 @@
                     [
                         'class' => 'side-button',
                         'id' => is_true_variable($is_array[$i]->id) ? trim($is_array[$i]->id) : '',
-                        'data-animation' => 'right',
+                        'data-animation' => 'side-button',
                         'style' => [
                             'right' => '1rem',
                             trim($string) => 'calc(calc(3rem + 1rem) * ' . $i . ' + 1rem)',
@@ -1517,7 +1524,6 @@
                         );
                         $is_return .= '<div id=\'reservation\'>';
                             $is_return .= '<div id=\'reservation-content\'>';
-                            // $is_return .= '<div id=\'reservation-content\' data-animation=\'left\'>';
 
                                 $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' method=\'get\' target=\'_blank\'>';
 
@@ -1726,15 +1732,10 @@
                                             $is_return .= orange_config_selector (
                                                 [
                                                     'class' => [ 'carousel-item', !$i ? 'active' : '', ],
-                                                    'style' => [
-                                                        'background-attachment' => 'scroll',
-                                                        'background-image' => 'url(' . str_replace($is_replace, '', $is_attrib[$i]['src']) . ')',
-                                                        'background-position' => 'center',
-                                                        'background-repeat' => 'no-repeat',
-                                                        'background-size' => 'cover',
-                                                        'height' => '100%',
-                                                        'width' => '100%',
-                                                    ],
+                                                    'style' => orange_style_background ([
+                                                        'type' => 'normal',
+                                                        'url' => str_replace($is_replace, '', $is_attrib[$i]['src']),
+                                                    ]),
                                                 ],
                                                 [
                                                     'closed' => false,
@@ -1753,17 +1754,6 @@
                                                     'name' => 'h4',
                                                 ],
                                             ) : '';
-                                            // $content .= is_true_variable($is_attrib[$i]['alt']) ? orange_config_selector (
-                                            //     [],
-                                            //     [
-                                            //         'closed' => true,
-                                            //         'content' => orange_text_content([
-                                            //             'content' => utf8_encode(trim($is_attrib[$i]['alt'])),
-                                            //             'wrapper' => [],
-                                            //         ]),
-                                            //         'name' => 'p',
-                                            //     ],
-                                            // ) : '';
                                             $is_return .= is_true_variable($content) ? orange_config_selector (
                                                 [
                                                     'class' => [
@@ -1779,14 +1769,7 @@
                                         endif;
                                         $is_return .= is_first_word($object['content'], '<iframe') ? orange_config_selector (
                                             [
-                                                'allow' => [
-                                                    'accelerometer',
-                                                    'autoplay',
-                                                    'clipboard-write',
-                                                    'encrypted-media',
-                                                    'gyroscope',
-                                                    'picture-in-picture',
-                                                ],
+                                                'allow' => is_true_variable($is_attrib[$i]['allow']) ? trim($is_attrib[$i]['allow']) : '',
                                                 'src' => trim($is_attrib[$i]['src']),
                                                 'title' => get_bloginfo('name'),
                                             ],
@@ -1950,11 +1933,19 @@
                                         $is_replace .= $is_attrib[$i]['width'];
                                         $is_replace .= 'x';
                                         $is_replace .= $is_attrib[$i]['height'];
-                                        $is_return .= orange_config_selector(
+                                        $is_style = [];
+                                        if (is_first_word($object['content'], '<iframe')):
+                                            $is_style = [ 'height' => '100%', 'width' => '100%' ];
+                                        elseif (is_first_word($object['content'], '<img')):
+                                            $is_style = orange_style_background ([
+                                                'type' => 'thumbnail',
+                                                'url' => str_replace($is_replace, '', $is_attrib[$i]['src']),
+                                            ]);
+                                        endif;
+                                        $is_return .= orange_config_selector (
                                             [
                                                 'class' => 'thumbnail-content',
-                                                'style' => is_first_word($object['content'], '<iframe') ? [ 'height' => '100%', 'width' => '100%' ]
-                                                : (is_first_word($object['content'], '<img') ? orange_style_background ([ 'type' => 'thumbnail', 'url' => str_replace($is_replace, '', $is_attrib[$i]['src']) ]) : []),
+                                                'style' => $is_style,
                                             ],
                                             [
                                                 'closed' => false,
@@ -1963,14 +1954,7 @@
                                         );
                                         $is_return .= is_first_word($object['content'], '<iframe') ? orange_config_selector (
                                             [
-                                                'allow' => [
-                                                    'accelerometer',
-                                                    'autoplay',
-                                                    'clipboard-write',
-                                                    'encrypted-media',
-                                                    'gyroscope',
-                                                    'picture-in-picture',
-                                                ],
+                                                'allow' => is_true_variable($is_attrib[$i]['allow']) ? trim($is_attrib[$i]['allow']) : '',
                                                 'src' => trim($is_attrib[$i]['src']),
                                                 'title' => get_bloginfo('name'),
                                             ],
