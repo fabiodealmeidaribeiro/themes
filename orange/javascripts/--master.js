@@ -62,24 +62,9 @@ export let orange_add_element_styles = (object) => {
     };
 };
 
-export let orange_set_height = (width, x, y) => {
-    return y * width / x;
-};
-
 export let orange_set_scroll = (string = 'yes') => {
     document.documentElement.style.overflow = string === 'yes' ? 'auto' : 'hidden';
     document.body.scroll = string === 'yes' ? 'yes' : 'no';
-};
-
-export let orange_get_bounding = (object) => {
-    return {
-        bottom : object.getBoundingClientRect()['bottom'],
-        left : object.getBoundingClientRect()['left'],
-        right : object.getBoundingClientRect()['right'],
-        top : object.getBoundingClientRect()['top'],
-        height : object.getBoundingClientRect()['height'],
-        width : object.getBoundingClientRect()['width'],
-    };
 };
 
 export let orange_lightbox_carousel = () => {
