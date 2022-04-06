@@ -4,7 +4,6 @@ import {
     orange_create_attribute,
     orange_create_element,
     orange_create_text,
-    orange_get_bounding,
     orange_get_class,
     orange_get_first_uppercase,
     orange_get_ID,
@@ -18,7 +17,6 @@ import {
     orange_lightbox_thumbnail,
     orange_remove_attribute,
     orange_set_attribute,
-    orange_set_height,
     orange_set_scroll,
 } from './--master.js';
 document.addEventListener("DOMContentLoaded", () => {
