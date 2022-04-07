@@ -1073,7 +1073,7 @@
                 $is_return .= is_true_key($object, 'type') ? orange_wp_list([
                     'type' => $object['type'],
                     'exclude' => is_true_key($object, 'exclude') ? $object['exclude'] : '',
-                    'wrapper' => 'ul',
+                    'wrapper' => [ 'ul' ],
                 ]) : '';
             endif;
             return $is_return;
@@ -1292,12 +1292,12 @@
                                 [
                                     'href' => get_home_url( '/' ),
                                     'class' => [
-                                        'nav-link',
+                                        !is_true_key($object, 'wrapper') ? 'nav-link' : '',
                                     ],
                                 ],
                                 [
                                     'closed' => true,
-                                    'content' => 'O hostel',
+                                    'content' => 'O Hostel',
                                     'name' => 'a',
                                 ],
                             ),
@@ -2181,8 +2181,6 @@
                 'content' => get_post_field('post_content', get_post()),
                 'id' => get_post_field('post_name', get_post()),
             ]) : '';
-
-
             if (is_first_word(get_post_field('post_excerpt', get_post()), '<img')): else:
                 $is_return .= is_true_variable(get_post_field('post_excerpt', get_post())) ? orange_config_selector (
                     [
@@ -2200,8 +2198,6 @@
                     ],
                 ) : '';
             endif;
-
-
             return orange_config_selector (
                 [
                     "style" => [

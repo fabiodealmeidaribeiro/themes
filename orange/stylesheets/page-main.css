@@ -33,7 +33,6 @@
 }
 
 #main-alert>h3, #main-alert>h3>a, #main-alert>p { color: var(--dark-color-pink); }
-
 #main-alert:hover>h3, #main-alert:hover>h3>a, #main-alert:hover>p { color: var(--color-white); }
 #main-alert:hover { background-color: var(--dark-color-pink); }
 
