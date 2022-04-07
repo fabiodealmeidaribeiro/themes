@@ -445,6 +445,14 @@
             $is_content = str_replace('</li>', '</p></li>', $is_content);
             $is_content = str_replace('<p><p>', '<p>', $is_content);
             $is_content = str_replace('</p></p>', '</p>', $is_content);
+            
+            $is_content = str_replace('width="600"', '', $is_content);
+            $is_content = str_replace('height="450"', '', $is_content);
+            $is_content = str_replace('style="border:0;"', '', $is_content);
+            $is_content = str_replace('allowfullscreen=""', '', $is_content);
+            $is_content = str_replace('loading="lazy"', '', $is_content);
+
+            $is_content = str_replace('referrerpolicy="no-referrer-when-downgrade"', '', $is_content);
             $is_content = is_true_variable($JSON->app->highlight)
             ? orange_highlight([ 'array' => $JSON->app->highlight, 'content' => $is_content, ])
             : $is_content;
@@ -1232,8 +1240,8 @@
                 $is_return .= '</div>';
             $is_return .= '</footer>';
             $is_return .= orange_powered([
-                'date' => '2022-04-30',
-                // 'date' => '2022-02-28',
+                // 'date' => '2022-04-30',
+                'date' => '2022-02-28',
                 'powered' => 'Clockwork Orange Development',
                 'url' => 'https://clockworkorange.com.br/',
             ]);
@@ -1276,6 +1284,26 @@
             $is_return .= is_true_key($object, 'wrapper') ? orange_wrapper($object['wrapper']) : '';
             if (is_true_key($object, 'type')):
                 if ($object['type'] === 'category'):
+                    $is_return .= orange_config_selector (
+                        [],
+                        [
+                            'closed' => true,
+                            'content' => orange_config_selector (
+                                [
+                                    'href' => get_home_url( '/' ),
+                                    'class' => [
+                                        'nav-link',
+                                    ],
+                                ],
+                                [
+                                    'closed' => true,
+                                    'content' => 'O hostel',
+                                    'name' => 'a',
+                                ],
+                            ),
+                            'name' => 'li',
+                        ],
+                    );
                     $is_return .= wp_list_categories([
                         'child_of' => 0,
                         'current_category' => 0,
@@ -1513,18 +1541,18 @@
                                     'name' => 'img',
                                 ],
                             ),
-                            'url' => [ 'href' => home_url('/'), ],
+                            'url' => [ 'href' => get_home_url('/'), ],
                             'wrapper' => 'picture',
                         ]) : '';
                         $is_bloginfo = '';
                         $is_bloginfo .= is_true_variable(get_bloginfo('name')) ? orange_text_content([
                             'content' => get_bloginfo('name'),
-                            'url' => [ 'href' => home_url('/'), ],
+                            'url' => [ 'href' => get_home_url('/'), ],
                             'wrapper' => 'h1',
                         ]) : '';
                         $is_bloginfo .= is_true_variable(get_bloginfo('description')) ? orange_text_content([
                             'content' => get_bloginfo('description'),
-                            'url' => [ 'href' => home_url('/'), ],
+                            'url' => [ 'href' => get_home_url('/'), ],
                             'wrapper' => [ 'p' ],
                         ]) : '';
                         $is_content .= is_true_variable(get_bloginfo('name')) ? orange_config_selector (
@@ -1544,8 +1572,6 @@
                         $is_style = array_merge($is_style, [
                             'height' => variable::number['thumbnail']['height'],
                         ]);
-
-
                         $is_return .= orange_config_selector (
                             [
                                 'id' => 'brand',
@@ -1587,7 +1613,7 @@
                         ]) : '';
                         $is_content .= is_true_variable(get_category(get_query_var('cat'))->description) ? orange_text_content([
                             'content' => trim(get_category(get_query_var('cat'))->description),
-                            'wrapper' => [ 'p', 'em' ],
+                            'wrapper' => [ 'p' ],
                         ]) : '';
                         $is_return .= is_true_variable(get_category(get_query_var('cat'))->description) ? orange_config_selector(
                             [],
@@ -1769,6 +1795,17 @@
                                                         'wrapper' => '',
                                                     ]),
                                                     'name' => 'h4',
+                                                ],
+                                            ) : '';
+                                            $content .= is_true_variable($is_attrib[$i]['alt']) ? orange_config_selector (
+                                                [],
+                                                [
+                                                    'closed' => true,
+                                                    'content' => orange_text_content([
+                                                        'content' => trim($is_attrib[$i]['alt']),
+                                                        'wrapper' => '',
+                                                    ]),
+                                                    'name' => 'p',
                                                 ],
                                             ) : '';
                                             $is_return .= is_true_variable($content) ? orange_config_selector (
@@ -2144,7 +2181,9 @@
                 'content' => get_post_field('post_content', get_post()),
                 'id' => get_post_field('post_name', get_post()),
             ]) : '';
-            if (is_first_word(get_post_field('post_excerpt', get_post()), '<i')): else:
+
+
+            if (is_first_word(get_post_field('post_excerpt', get_post()), '<img')): else:
                 $is_return .= is_true_variable(get_post_field('post_excerpt', get_post())) ? orange_config_selector (
                     [
                         'class' => 'excerpt',
@@ -2161,6 +2200,8 @@
                     ],
                 ) : '';
             endif;
+
+
             return orange_config_selector (
                 [
                     "style" => [
@@ -2214,7 +2255,7 @@
                     'closed' => true,
                     'content' => orange_text_content([
                         'content' => 'File not found!',
-                        'wrapper' => [ 'p', 'em' ],
+                        'wrapper' => [ 'p' ],
                     ]),
                     'name' => '',
                 ],

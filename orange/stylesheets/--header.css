@@ -48,7 +48,11 @@
 {
   margin: 0;
 }
-main>article>header { margin: 2rem 0 0 0; }
+main>article>header
+{
+  margin: 3rem 0 0 0;
+  padding: 0 calc(1rem + .063rem);
+}
 @media (max-width: 575.98px) { }
 @media (max-width: 767.98px) {
   #container>header>#reservation>#reservation-content,

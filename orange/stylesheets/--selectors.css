@@ -2,8 +2,7 @@
 
 @import '--root.css';
 
-*
-{
+* {
   box-sizing: border-box;
   -webkit-transition: var(--transition);
   -moz-transition: var(--transition);
@@ -11,30 +10,31 @@
   transition: var(--transition);
 }
 
-html
-{
+html {
   scroll-behavior: smooth;
 }
 
 body,
-html
-{
+html {
   background-color: var(--color-purple);
   margin: 0;
   padding: 0;
 }
 
-main { margin: 0 1rem; }
+main {
+  margin: 0 1rem;
+}
 
-footer { margin: 1rem 1rem 3rem 1rem; }
+footer {
+  margin: 1rem 1rem 3rem 1rem;
+}
 
 a,
 b,
 li,
 ol,
 p,
-ul
-{
+ul {
   color: var(--dark-color-purple);
   font-family: var(--text-font-family);
   font-size: var(--text-font-size);
@@ -46,26 +46,63 @@ ul
   text-decoration: none;
 }
 
-h1, h1>a,
-h2, h2>a,
-h3, h3>a,
-h4, h4>a,
-h5, h5>a,
-h6, h6>a
-{
+h1,
+h1>a,
+h2,
+h2>a,
+h3,
+h3>a,
+h4,
+h4>a,
+h5,
+h5>a,
+h6,
+h6>a {
+  color: var(--dark-color-purple);
   font-family: var(--title-font-family);
   font-weight: 500;
   line-height: 1;
   margin: 0;
   padding: 0;
-  text-transform : uppercase;
+  text-transform: uppercase;
 }
 
-h1>a:hover, h2>a:hover, h3>a:hover, h4>a:hover, h5>a:hover, h6>a:hover, p>a:hover { color: var(--dark-color-pink); }
+h1>a:hover,
+h2>a:hover,
+h3>a:hover,
+h4>a:hover,
+h5>a:hover,
+h6>a:hover,
+p>a:hover {
+  color: var(--dark-color-pink);
+}
 
-h1, h1>a { font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1); }
-h2, h2>a { font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1); }
-h3, h3>a { font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1); }
-h4, h4>a { font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1); }
-h5, h5>a { font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1); }
-h6, h6>a { font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1); }
+h1,
+h1>a {
+  font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1);
+}
+
+h2,
+h2>a {
+  font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1);
+}
+
+h3,
+h3>a {
+  font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1);
+}
+
+h4,
+h4>a {
+  font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1);
+}
+
+h5,
+h5>a {
+  font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1);
+}
+
+h6,
+h6>a {
+  font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 1);
+}

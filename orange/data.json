@@ -7,50 +7,29 @@
         "category": {
             "title": "",
             "exclude": [
-                "5",
-                "4",
-                "3"
+                "2",
+                "3",
+                "4"
             ],
             "main": [
-                "9"
+                "8"
             ],
             "widget": {
                 "navigation": [
                     "3",
                     "4",
-                    "5"
+                    "2"
                 ]
             }
         },
         "page": {
             "title": "",
             "exclude": [
-                "272"
+                "10"
             ]
         },
-        "clear": [
-            "em"
-        ],
-        "highlight": [
-            "agitos",
-            "bares",
-            "copacabana",
-            "eventos",
-            "festas",
-            "integrações culturais",
-            "party hostel",
-            "praias",
-            "pura vida hostel",
-            "rio de janeiro",
-            "free tours",
-            "Ipanema",
-            "Arpoador",
-            "lazer",
-            "cultura",
-            "comércio",
-            "vida noturna",
-            "transportes"
-        ],
+        "clear": [],
+        "highlight": [],
         "meta": {
             "object": [
                 "Acomodação",
