@@ -1519,35 +1519,28 @@
             return $is_return;
         }
 
-        function orange_archive_list() {
-            $is_return = [];
-            $is_type = [ 'jpg', 'jpeg', ];
-            $is_folder = new DirectoryIterator(__DIR__ . '\images');
-            foreach ($is_folder as $is_archive):
-                if (in_array(strtolower($is_archive->getExtension()), $is_type)):
-                    if (is_first_word($is_archive->getFilename(), 'header')):
-                        array_push($is_return, $is_archive->getFilename());
-                    endif;
-                endif;
+        function orange_archive_list($object) {
+            $is_array = [];
+            foreach (new DirectoryIterator(str_replace('/', '\\', wp_upload_dir()['path'])) as $is_archive):
+                in_array(strtolower($is_archive->getExtension()), [ 'jpg', 'jpeg', 'png' ]) ? (is_first_word($is_archive->getFilename(), is_true_key($object, 'prefix') ? $object['prefix'] : '') ? array_push($is_array, $is_archive->getFilename()) : null) : null;
             endforeach;
-            return $is_return;
+            $is_random = is_true_variable($is_array) ? (is_true_key($object, 'random') ? array_rand($is_array) : 0) : 0;
+            $is_path = is_true_variable($is_array) ? str_replace('/', '\\', wp_upload_dir()['path']) . '\\' . $is_array[$is_random] : '';
+            $is_url = is_true_variable($is_array) ? str_replace('\\', '/', wp_upload_dir()['url']) . '/' . $is_array[$is_random] : '';
+            return file_exists($is_path) ? $is_url : '';
         }
 
         function orange_header ($object) {
             $is_return = '';
             if (is_true_key($object, 'type')):
                 if ($object['type'] === 'bloginfo'):
-                    $is_logo = "\/images/logo.jpg";
-                    $is_background = "\/images/" .  orange_archive_list()[array_rand(orange_archive_list())];
                     $is_return .= '<header>';
-                        $is_content = '';    
-                        $is_content .= file_exists(__DIR__ . $is_logo) ? orange_text_content([
+                        $is_content = '';
+                        $is_content .= is_true_variable(orange_archive_list([ 'prefix' => 'logo' ])) ? orange_text_content([
                             'content' => orange_config_selector (
                                 [
-                                    'src' => get_template_directory_uri() . $is_logo,
-                                    'alt' => is_true_variable(get_bloginfo('name'))
-                                    ? get_bloginfo('name') . (is_true_variable(get_bloginfo('description')) ? ' | ' . get_bloginfo('description') : '')
-                                    : '',
+                                    'src' => orange_archive_list([ 'prefix' => 'logo' ]),
+                                    'alt' => is_true_variable(get_bloginfo('name')) ? get_bloginfo('name') . (is_true_variable(get_bloginfo('description')) ? ' | ' . get_bloginfo('description') : '') : '',
                                 ],
                                 [
                                     'closed' => false,
@@ -1562,7 +1555,7 @@
                         $is_bloginfo .= is_true_variable(get_bloginfo('name')) ? orange_text_content([
                             'content' => get_bloginfo('name'),
                             'url' => [ 'href' => get_home_url('/'), ],
-                            'wrapper' => 'h1',
+                            'wrapper' => [ 'h1' ],
                         ]) : '';
                         $is_bloginfo .= is_true_variable(get_bloginfo('description')) ? orange_text_content([
                             'content' => get_bloginfo('description'),
@@ -1579,10 +1572,10 @@
                                 'name' => 'div',
                             ],
                         ) : '';
-                        $is_style = file_exists(__DIR__ . $is_background) ? orange_style_background ([
+                        $is_style = orange_style_background ([
                             'type' => 'normal',
-                            'url' => get_template_directory_uri() . $is_background,
-                        ]) : [];
+                            'url' => orange_archive_list([ 'prefix' => 'header', 'random' => true ]),
+                        ]);
                         $is_style = array_merge($is_style, [
                             'height' => variable::number['thumbnail']['height'],
                         ]);
