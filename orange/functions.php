@@ -523,7 +523,7 @@
         function orange_side_button_config ($object, $string = 'top') {
             $is_array = [];
             for ($i = 0 ; $i < sizeof($object); $i++):
-                if (!is_true_variable($object[$i]->title)): else:
+                if (is_true_variable($object[$i]->active)):
                     array_push($is_array, $object[$i]);
                 endif;
             endfor;
@@ -1786,28 +1786,28 @@
                                                 ],
                                             );
                                             $content = '';
-                                            $content .= is_true_variable($is_attrib[$i]['title']) ? orange_config_selector (
-                                                [],
-                                                [
-                                                    'closed' => true,
-                                                    'content' => orange_text_content([
-                                                        'content' => trim($is_attrib[$i]['title']),
-                                                        'wrapper' => '',
-                                                    ]),
-                                                    'name' => 'h4',
-                                                ],
-                                            ) : '';
-                                            $content .= is_true_variable($is_attrib[$i]['alt']) ? orange_config_selector (
-                                                [],
-                                                [
-                                                    'closed' => true,
-                                                    'content' => orange_text_content([
-                                                        'content' => trim($is_attrib[$i]['alt']),
-                                                        'wrapper' => '',
-                                                    ]),
-                                                    'name' => 'p',
-                                                ],
-                                            ) : '';
+                                            // $content .= is_true_variable($is_attrib[$i]['title']) ? orange_config_selector (
+                                            //     [],
+                                            //     [
+                                            //         'closed' => true,
+                                            //         'content' => orange_text_content([
+                                            //             'content' => trim($is_attrib[$i]['title']),
+                                            //             'wrapper' => '',
+                                            //         ]),
+                                            //         'name' => 'h4',
+                                            //     ],
+                                            // ) : '';
+                                            // $content .= is_true_variable($is_attrib[$i]['alt']) ? orange_config_selector (
+                                            //     [],
+                                            //     [
+                                            //         'closed' => true,
+                                            //         'content' => orange_text_content([
+                                            //             'content' => trim($is_attrib[$i]['alt']),
+                                            //             'wrapper' => '',
+                                            //         ]),
+                                            //         'name' => 'p',
+                                            //     ],
+                                            // ) : '';
                                             $is_return .= is_true_variable($content) ? orange_config_selector (
                                                 [
                                                     'class' => [
@@ -2032,10 +2032,8 @@
             $is_array = [];
             if (is_true_key($object, 'array')):
                 for ($i = 0; $i < sizeof($object['array']); $i++):
-                    if (is_true_variable($object['array'][$i]->name)):
-                        if (is_true_variable($object['array'][$i]->title)):
-                            array_push($is_array, $object['array'][$i]);
-                        endif;
+                    if (is_true_variable($object['array'][$i]->active)):
+                        array_push($is_array, $object['array'][$i]);
                     endif;
                 endfor;
             endif;

@@ -123,7 +123,8 @@
                     "target": true,
                     "title": "",
                     "description": "",
-                    "url": "https://booking.hqbeds.com.br/puravida"
+                    "url": "https://booking.hqbeds.com.br/puravida",
+                    "active": false
                 },
                 {
                     "id": "side-button-whatsapp",
@@ -131,7 +132,8 @@
                     "target": true,
                     "title": "Recepção",
                     "description": "",
-                    "url": "https://api.whatsapp.com/send?phone=5521990286961&text=Ol%C3%A1!%20Vim%20do%20site%20do%20Pura%20Vida%2C%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20hostel."
+                    "url": "https://api.whatsapp.com/send?phone=5521990286961&text=Ol%C3%A1!%20Vim%20do%20site%20do%20Pura%20Vida%2C%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20hostel.",
+                    "active": true
                 },
                 {
                     "id": "side-button-instagram",
@@ -139,7 +141,8 @@
                     "target": true,
                     "title": "instagram",
                     "description": "",
-                    "url": "https://www.instagram.com/puravidahostelrio/"
+                    "url": "https://www.instagram.com/puravidahostelrio/",
+                    "active": true
                 },
                 {
                     "id": "side-button-facebook",
@@ -147,7 +150,8 @@
                     "target": true,
                     "title": "facebook",
                     "description": "",
-                    "url": "https://www.facebook.com/PuraVidaHostel"
+                    "url": "https://www.facebook.com/PuraVidaHostel",
+                    "active": true
                 },
                 {
                     "id": "side-button-youtube",
@@ -155,7 +159,8 @@
                     "target": true,
                     "title": "youtube",
                     "description": "",
-                    "url": "https://www.youtube.com/channel/UCrZbv4HW3NG1MUSATax5vyA"
+                    "url": "https://www.youtube.com/channel/UCrZbv4HW3NG1MUSATax5vyA",
+                    "active": true
                 },
                 {
                     "id": "side-button-airplane",
@@ -163,7 +168,8 @@
                     "target": true,
                     "title": "tripadvisor",
                     "description": "",
-                    "url": "https://www.tripadvisor.com.br/Hotel_Review-g303506-d2279079-Reviews-Pura_Vida_Hostel-Rio_de_Janeiro_State_of_Rio_de_Janeiro.html"
+                    "url": "https://www.tripadvisor.com.br/Hotel_Review-g303506-d2279079-Reviews-Pura_Vida_Hostel-Rio_de_Janeiro_State_of_Rio_de_Janeiro.html",
+                    "active": false
                 }
             ],
             "bottom": [
@@ -173,7 +179,8 @@
                     "target": false,
                     "title": "down",
                     "description": "",
-                    "url": ""
+                    "url": "",
+                    "active": true
                 },
                 {
                     "id": "side-button-up",
@@ -181,7 +188,8 @@
                     "target": false,
                     "title": "up",
                     "description": "",
-                    "url": ""
+                    "url": "",
+                    "active": true
                 }
             ]
         },
@@ -207,11 +215,21 @@
         "easiness": [
             {
                 "id": "",
+                "name": "heart",
+                "target": false,
+                "title": "Amizade",
+                "description": "",
+                "url": "",
+                "active": true
+            },
+            {
+                "id": "",
                 "name": "bonfire",
                 "target": false,
                 "title": "Área para churrasco",
                 "description": "",
-                "url": ""
+                "url": "",
+                "active": true
             },
             {
                 "id": "",
@@ -219,39 +237,17 @@
                 "target": false,
                 "title": "Bar do Deck",
                 "description": "",
-                "url": ""
+                "url": "",
+                "active": true
             },
             {
                 "id": "",
-                "name": "lock-closed",
+                "name": "football",
                 "target": false,
-                "title": "Segurança",
-                "description": "24 horas",
-                "url": ""
-            },
-            {
-                "id": "",
-                "name": "wine",
-                "target": false,
-                "title": "Taverna",
-                "description": "Private club",
-                "url": ""
-            },
-            {
-                "id": "",
-                "name": "wifi",
-                "target": false,
-                "title": "Wi-fi",
+                "title": "Bolas de football",
                 "description": "",
-                "url": ""
-            },
-            {
-                "id": "",
-                "name": "laptop",
-                "target": false,
-                "title": "Co-working",
-                "description": "",
-                "url": ""
+                "url": "",
+                "active": true
             },
             {
                 "id": "",
@@ -259,7 +255,44 @@
                 "target": false,
                 "title": "Bolas de Vôlei",
                 "description": "",
-                "url": ""
+                "url": "",
+                "active": true
+            },
+            {
+                "id": "",
+                "name": "laptop",
+                "target": false,
+                "title": "Co-working",
+                "description": "",
+                "url": "",
+                "active": true
+            },
+            {
+                "id": "",
+                "name": "lock-closed",
+                "target": false,
+                "title": "Segurança",
+                "description": "24 horas",
+                "url": "",
+                "active": true
+            },
+            {
+                "id": "",
+                "name": "wine",
+                "target": false,
+                "title": "Taverna",
+                "description": "Private club",
+                "url": "",
+                "active": true
+            },
+            {
+                "id": "",
+                "name": "wifi",
+                "target": false,
+                "title": "Wi-fi",
+                "description": "",
+                "url": "",
+                "active": true
             }
         ]
     },

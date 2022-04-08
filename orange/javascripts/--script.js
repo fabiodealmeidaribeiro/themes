@@ -20,10 +20,10 @@ import {
     orange_set_scroll,
 } from './--master.js';
 document.addEventListener("DOMContentLoaded", () => {
-    orange_add_remove_classes({ classes : [ 'align-items-stretch', 'd-flex', 'g-0', 'row', ], elements : [ '#footer-row', ], method : 'add', });
-    orange_add_remove_classes({ classes : [ 'col-lg' ], elements : [ 'article', '.post-highlight', '.post-postcustom', '.widget-container', ], method : 'add', });
-    orange_add_remove_classes({ classes : [ 'nav-link', ], elements : [ '.nav-item>a', ], method : 'add', });
-    orange_add_remove_classes({ classes : [ 'active', ], elements : [ '.current-cat>a', '.current_page_item>a' ], method : 'add', });
+    orange_add_remove_classes({ classes: ['align-items-stretch', 'd-flex', 'g-0', 'row',], elements: ['#footer-row',], method: 'add', });
+    orange_add_remove_classes({ classes: ['col-lg'], elements: ['article', '.post-highlight', '.post-postcustom', '.widget-container',], method: 'add', });
+    orange_add_remove_classes({ classes: ['nav-link',], elements: ['.nav-item>a',], method: 'add', });
+    orange_add_remove_classes({ classes: ['active',], elements: ['.current-cat>a', '.current_page_item>a'], method: 'add', });
     orange_lightbox_carousel();
     // orange_lightbox_thumbnail();
     window.topPosition = 0;
@@ -35,35 +35,34 @@ document.addEventListener("DOMContentLoaded", () => {
     window.document.querySelector('#container')['style']['backgroundColor'] = getComputedStyle(window.document.documentElement).getPropertyValue('--container-background');
     window.document.querySelector('#container')['style']['position'] = 'absolute';
     window.document.querySelector('#container')['style']['top'] = topPosition + 'px';
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', (element) => {
         topPosition <= window['pageYOffset']
-        ? orange_add_remove_classes({ classes: [ 'transparent', ], elements: [ 'nav', ], method: 'add', })
-        : orange_add_remove_classes({ classes: [ 'transparent', ], elements: [ 'nav', ], method: 'remove', });
+            ? orange_add_remove_classes({ classes: ['transparent',], elements: ['nav',], method: 'add', })
+            : orange_add_remove_classes({ classes: ['transparent',], elements: ['nav',], method: 'remove', });
     });
-    window.document.querySelector('nav').querySelector('div').querySelector('button').addEventListener('click', () => {
+    window.document.querySelector('nav').querySelector('div').querySelector('button').addEventListener('click', (element) => {
         console.log(window.document.querySelector('nav').getBoundingClientRect()['height']);
     });
-    window.document.querySelector('#side-button-up').addEventListener('click', () => {
-        // window.document.querySelector('nav').querySelector('div').querySelector('button').classList.add('collapsed');
-        // window.document.querySelector('nav').querySelector('div').querySelector('button').classList.remove('collapsed');
-        // window.document.querySelector('nav').querySelector('div').querySelector('button').classList.toggle('collapsed');
+    window.document.querySelector('#side-button-up').addEventListener('click', (element) => {
         window.scrollTo({
-            top : topPosition + 'px',
-            behavior : 'smooth',
+            top: topPosition + 'px',
+            behavior: 'smooth',
         });
     });
-    window.document.querySelector('#side-button-down').addEventListener('click', () => {
+    window.document.querySelector('#side-button-down').addEventListener('click', (element) => {
         window.scrollTo({
-            top : bottomPosition,
-            behavior : 'smooth',
+            top: bottomPosition,
+            behavior: 'smooth',
         });
     });
-    window.document.querySelectorAll('[data-animation=\'side-button\']').forEach((element) => {
-        element.addEventListener('mouseover', () => {
-            element.classList.add('animation');
+    window.document.querySelectorAll('[data-animation=\'side-button\']').forEach((elements) => {
+        elements.addEventListener('click', (element) => {
         });
-        element.addEventListener('mouseout', () => {
-            element.classList.remove('animation');
+        elements.addEventListener('mouseover', (element) => {
+            elements.classList.add('animation');
+        });
+        elements.addEventListener('mouseout', (element) => {
+            elements.classList.remove('animation');
         });
     });
 });
