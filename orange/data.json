@@ -118,78 +118,78 @@
         "sidebar": {
             "up": [
                 {
+                    "active": false,
+                    "description": "",
                     "id": "side-button-bed",
                     "name": "bed",
                     "target": true,
-                    "title": "",
-                    "description": "",
-                    "url": "https://booking.hqbeds.com.br/puravida",
-                    "active": false
+                    "title": "Reservas",
+                    "url": "https://booking.hqbeds.com.br/puravida"
                 },
                 {
+                    "active": true,
+                    "description": "",
                     "id": "side-button-whatsapp",
                     "name": "logo-whatsapp",
                     "target": true,
                     "title": "Recepção",
-                    "description": "",
-                    "url": "https://api.whatsapp.com/send?phone=5521990286961&text=Ol%C3%A1!%20Vim%20do%20site%20do%20Pura%20Vida%2C%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20hostel.",
-                    "active": true
+                    "url": "https://api.whatsapp.com/send?phone=5521990286961&text=Ol%C3%A1!%20Vim%20do%20site%20do%20Pura%20Vida%2C%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20hostel."
                 },
                 {
+                    "active": true,
+                    "description": "",
                     "id": "side-button-instagram",
                     "name": "logo-instagram",
                     "target": true,
                     "title": "instagram",
-                    "description": "",
-                    "url": "https://www.instagram.com/puravidahostelrio/",
-                    "active": true
+                    "url": "https://www.instagram.com/puravidahostelrio/"
                 },
                 {
+                    "active": true,
+                    "description": "",
                     "id": "side-button-facebook",
                     "name": "logo-facebook",
                     "target": true,
                     "title": "facebook",
-                    "description": "",
-                    "url": "https://www.facebook.com/PuraVidaHostel",
-                    "active": true
+                    "url": "https://www.facebook.com/PuraVidaHostel"
                 },
                 {
+                    "active": true,
+                    "description": "",
                     "id": "side-button-youtube",
                     "name": "logo-youtube",
                     "target": true,
                     "title": "youtube",
-                    "description": "",
-                    "url": "https://www.youtube.com/channel/UCrZbv4HW3NG1MUSATax5vyA",
-                    "active": true
+                    "url": "https://www.youtube.com/channel/UCrZbv4HW3NG1MUSATax5vyA"
                 },
                 {
+                    "active": false,
+                    "description": "",
                     "id": "side-button-airplane",
                     "name": "airplane",
                     "target": true,
                     "title": "tripadvisor",
-                    "description": "",
-                    "url": "https://www.tripadvisor.com.br/Hotel_Review-g303506-d2279079-Reviews-Pura_Vida_Hostel-Rio_de_Janeiro_State_of_Rio_de_Janeiro.html",
-                    "active": false
+                    "url": "https://www.tripadvisor.com.br/Hotel_Review-g303506-d2279079-Reviews-Pura_Vida_Hostel-Rio_de_Janeiro_State_of_Rio_de_Janeiro.html"
                 }
             ],
             "bottom": [
                 {
+                    "active": true,
+                    "description": "",
                     "id": "side-button-down",
                     "name": "arrow-down",
                     "target": false,
                     "title": "down",
-                    "description": "",
-                    "url": "",
-                    "active": true
+                    "url": ""
                 },
                 {
+                    "active": true,
+                    "description": "",
                     "id": "side-button-up",
                     "name": "arrow-up",
                     "target": false,
                     "title": "up",
-                    "description": "",
-                    "url": "",
-                    "active": true
+                    "url": ""
                 }
             ]
         },

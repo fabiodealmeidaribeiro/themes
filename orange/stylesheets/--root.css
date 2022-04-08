@@ -30,9 +30,6 @@
   --title-font-size : 1.5rem;
   --title-font-family : 'Montserrat', sans-serif;
 
-  --text-font-size : 1rem;
-  --text-font-family : system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
   --border : var(--dark-color-gray) solid .063rem;
   --border-radius : .5rem;
   --box-shadow : 0 .125rem .125rem rgba(0, 0, 0, .25);
@@ -40,11 +37,22 @@
   /* ease; ease-in; ease-out; ease-in-out; linear; step-start; step-end; */
   --transition : all .25s ease;
 
+  --brand-box-shadow :
+    0 0 calc(.313rem * 1) 0 var(--color-white),
+    0 0 calc(.313rem * 2) 0 var(--color-white),
+    0 0 calc(.313rem * 3) 0 var(--color-white);
+
+  --brand-text-shadow :
+    1px 1px 1px black,
+    0 0 calc(.313rem * 1) var(--color-white),
+    0 0 calc(.313rem * 2) var(--color-white),
+    0 0 calc(.313rem * 3) var(--color-white);
+
   --side-button-width : calc(var(--margin) * 3);
   --side-button-transition : all .125s ease;
   --side-button-box-shadow : 0 0 .25rem rgba(255, 255, 255, .75);
-  --side-button-box-shadow-hover : 0 0 calc(.313rem * 1) 0 var(--color-white), 0 0 calc(.313rem * 2) 0 var(--color-white), 0 0 calc(.313rem * 3) 0 var(--color-white);
-
+  --side-button-box-shadow-hover : var(--brand-box-shadow);
+  
   --container-background : var(--color-gray);
   --container-border-radius : .5rem;
   --container-width : calc(100% - calc(var(--side-button-width) + var(--margin) * 2));
