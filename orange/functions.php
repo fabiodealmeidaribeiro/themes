@@ -1519,12 +1519,17 @@
             return $is_return;
         }
 
+        function orange_header_path () {    
+            $is_return = '/images/header-' . rand(0, 32) . '.' . 'jpg';
+            return file_exists(__DIR__ . $is_return) ? $is_return : orange_header_path();
+        }
+
         function orange_header ($object) {
             $is_return = '';
             if (is_true_key($object, 'type')):
                 if ($object['type'] === 'bloginfo'):
                     $is_logo_path = '/images/logo.jpg';
-                    $is_header_path = '/images/header.jpg';
+                    $is_header_path = orange_header_path();
                     $is_return .= '<header>';
                         $is_content = '';    
                         $is_content .= file_exists(__DIR__ . $is_logo_path) ? orange_text_content([

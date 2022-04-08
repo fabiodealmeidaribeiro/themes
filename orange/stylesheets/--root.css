@@ -38,20 +38,23 @@
   --transition : all .25s ease;
 
   --brand-box-shadow :
-    0 0 calc(.313rem * 1) 0 var(--color-white),
-    0 0 calc(.313rem * 2) 0 var(--color-white),
-    0 0 calc(.313rem * 3) 0 var(--color-white);
+    0 0 calc(.313rem * 1) 0 black,
+    0 0 calc(.313rem * 2) 0 black,
+    0 0 calc(.313rem * 3) 0 black;
 
   --brand-text-shadow :
     1px 1px 1px black,
-    0 0 calc(.313rem * 1) var(--color-white),
-    0 0 calc(.313rem * 2) var(--color-white),
-    0 0 calc(.313rem * 3) var(--color-white);
+    0 0 calc(.313rem * 1) black,
+    0 0 calc(.313rem * 2) black,
+    0 0 calc(.313rem * 3) black;
 
   --side-button-width : calc(var(--margin) * 3);
   --side-button-transition : all .125s ease;
   --side-button-box-shadow : 0 0 .25rem rgba(255, 255, 255, .75);
-  --side-button-box-shadow-hover : var(--brand-box-shadow);
+  --side-button-box-shadow-hover :
+    0 0 calc(.313rem * 1) 0 var(--color-white),
+    0 0 calc(.313rem * 2) 0 var(--color-white),
+    0 0 calc(.313rem * 3) 0 var(--color-white);
   
   --container-background : var(--color-gray);
   --container-border-radius : .5rem;
