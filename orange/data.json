@@ -330,5 +330,37 @@
                 "src": "https://youtu.be/CyQOtClQ0vo"
             }
         ]
-    }
+    },
+    "menu": [
+        {
+            "name": "drinks",
+            "item": [
+                {
+                    "title": "pura vida",
+                    "description": "",
+                    "value": "20"
+                }
+            ]
+        },
+        {
+            "name": "cervejas",
+            "item": [
+                {
+                    "title": "regular 350ml",
+                    "description": "",
+                    "value": "6"
+                }
+            ]
+        },
+        {
+            "name": "doses",
+            "item": [
+                {
+                    "title": "cachaça gabriela",
+                    "description": "",
+                    "value": "8"
+                }
+            ]
+        }
+    ]
 }

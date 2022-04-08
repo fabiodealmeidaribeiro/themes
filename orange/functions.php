@@ -2256,6 +2256,32 @@
             return $is_return;
         };
 
+        function orange_page_menu_content () {
+            global $JSON;
+            $is_return = '';
+            $is_return .= orange_content([ 'title' => true ]);
+            $is_return .= '<table class="table table-striped table-hover m-0">';
+
+                $is_return .= '<thead>';
+                    $is_return .= '<tr>';
+                        $is_return .= '<th>' . 'Produto' . '</th>';
+                        $is_return .= '<th>' . 'Descrição' . '</th>';
+                        $is_return .= '<th>' . 'Valor' . '</th>';
+                    $is_return .= '</tr>';
+                $is_return .= '</thead>';
+
+                $is_return .= '<tbody>';
+                    $is_return .= '<tr>';
+                        $is_return .= '<td>' . 'Agua Grande' . '</td>';
+                        $is_return .= '<td>' . 'Agua Grande' . '</td>';
+                        $is_return .= '<td>' . 'R$10,00' . '</td>';
+                    $is_return .= '</tr>';
+                $is_return .= '</tbody>';
+
+            $is_return .= '</table>';
+            return $is_return;
+        };
+
         function orange_page_single_content () {
             $is_return = '';
             $is_return .= is_category() ? orange_config_selector([ 'id' => get_post_field('post_name', get_post()), 'style' => [ 'height' => '2rem' ] ]) : '';
