@@ -7,7 +7,7 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 <?php
-    $JSON = get_json_file('/data.json');
+    $JSON = orange_require_json_archive ([ 'archive' => 'data.json' ]);
     $is_wplists = orange_wp_list([ 'type' => 'category', 'exclude' => $JSON->app->category->exclude ]);
     $is_wplists = str_replace('cat-item', 'nav-item', $is_wplists);
     $is_wplists = str_replace('children', 'dropdown-menu', $is_wplists);

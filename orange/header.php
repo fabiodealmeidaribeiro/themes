@@ -5,6 +5,6 @@
 <?php echo orange_side_button(); ?>
 <div id="container">
 <?php
-    require require_file('/navbar.php');
+    orange_require_php_archive([ 'archive' => 'navbar.php' ]);
     echo orange_header([ 'type' => 'bloginfo' ]);
 ?>

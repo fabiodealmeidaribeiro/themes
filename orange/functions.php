@@ -169,8 +169,6 @@
         //     'menu_2' => 'Segundo Menu',
         // ]);
 
-        // require require_file ('/inc/functions.php');
-
         $lorem = '';
         $lorem .= ' Lorem ipsum dolor sit amet,';
         $lorem .= ' consectetur adipiscing elit.';
@@ -179,12 +177,20 @@
         $lorem .= ' consectetur adipiscing elit.';
         $lorem .= ' Vestibulum eget quam id quam ultrices condimentum ac vitae tortor.';
 
-        function require_file ($object) { return str_replace('\\', '/', (__DIR__ . trim($object))); };
+        function orange_require_php_archive ($object) {
+            return file_exists(str_replace('\\', '/', __DIR__ . '/' . trim($object['archive'])))
+            ? require_once str_replace('\\', '/', __DIR__ . '/' . trim($object['archive']))
+            : '';
+        };
 
-        function get_json_file ($object) { return json_decode(file_get_contents(str_replace('\\', '/', (__DIR__ . trim($object))))); };
+        function orange_require_json_archive ($object) {
+            return file_exists(str_replace('\\', '/', __DIR__ . '/' . trim($object['archive'])))
+            ? json_decode(file_get_contents(str_replace('\\', '/', __DIR__ . '/' . trim($object['archive']))))
+            : [];
+        };
 
-        $JSON = get_json_file ('/data.json');
-    
+        $JSON = orange_require_json_archive ([ 'archive' => 'data.json' ]);
+
         class variable {
             const column = 4;
             const dimension = 26.075;
