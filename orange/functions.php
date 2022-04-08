@@ -1546,7 +1546,9 @@
                             'content' => orange_config_selector (
                                 [
                                     'src' => orange_archive_list([ 'prefix' => 'logo' ]),
-                                    'alt' => is_true_variable(get_bloginfo('name')) ? get_bloginfo('name') . (is_true_variable(get_bloginfo('description')) ? ' | ' . get_bloginfo('description') : '') : '',
+                                    'alt' => is_true_variable(get_bloginfo('name'))
+                                    ? get_bloginfo('name') . (is_true_variable(get_bloginfo('description')) ? ' | ' . get_bloginfo('description') : '')
+                                    : '',
                                 ],
                                 [
                                     'closed' => false,
@@ -1568,13 +1570,23 @@
                             'url' => [ 'href' => get_home_url('/'), ],
                             'wrapper' => [ 'p' ],
                         ]) : '';
-                        $is_content .= is_true_variable(get_bloginfo('name')) ? orange_config_selector (
+                        $is_content .= is_true_variable($is_bloginfo) ? orange_config_selector (
                             [
                                 'id' => 'bloginfo',
                             ],
                             [
                                 'closed' => true,
                                 'content' => $is_bloginfo,
+                                'name' => 'div',
+                            ],
+                        ) : '';
+                        $is_container = is_true_variable($is_content) ? orange_config_selector (
+                            [
+                                'id' => 'brand',
+                            ],
+                            [
+                                'closed' => true,
+                                'content' => $is_content,
                                 'name' => 'div',
                             ],
                         ) : '';
@@ -1585,17 +1597,17 @@
                         $is_style = array_merge($is_style, [
                             'height' => variable::number['thumbnail']['height'],
                         ]);
-                        $is_return .= orange_config_selector (
+                        $is_return .= is_true_variable($is_container) ? orange_config_selector (
                             [
-                                'id' => 'brand',
+                                'id' => 'background',
                                 'style' => $is_style,
                             ],
                             [
                                 'closed' => true,
-                                'content' => $is_content,
+                                'content' => $is_container,
                                 'name' => 'div',
                             ],
-                        );
+                        ) : '';
                         $is_return .= orange_config_selector (
                             [
                                 'id' => 'reservation',

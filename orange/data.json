@@ -330,13 +330,5 @@
                 "src": "https://youtu.be/CyQOtClQ0vo"
             }
         ]
-    },
-    "event": [
-        {
-            "name": "footsteps",
-            "title": "Free tours",
-            "description": "",
-            "url": ""
-        }
-    ]
+    }
 }
