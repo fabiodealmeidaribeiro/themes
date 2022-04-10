@@ -333,34 +333,198 @@
     },
     "menu": [
         {
-            "name": "drinks",
+            "title": "bar",
+            "description": "",
             "item": [
                 {
-                    "title": "pura vida",
+                    "title": "drinks",
                     "description": "",
-                    "value": "20"
+                    "item": [
+                        {
+                            "title": "pura vida",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "caipirinha",
+                            "description": "com cachaça gabriela",
+                            "value": "20"
+                        },
+                        {
+                            "title": "1 litro de caipirinha",
+                            "description": "com cachaça gabriela",
+                            "value": "35"
+                        },
+                        {
+                            "title": "caipirinha",
+                            "description": "bebida tradicional brasileira",
+                            "value": "15"
+                        },
+                        {
+                            "title": "caipivodka nacional",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "1 litro de caipivodka nacional",
+                            "description": "",
+                            "value": "35"
+                        },
+                        {
+                            "title": "caipivodka absolut",
+                            "description": "",
+                            "value": "25"
+                        },
+                        {
+                            "title": "gin tonica nacional",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "gin tonica importado",
+                            "description": "",
+                            "value": "25"
+                        },
+                        {
+                            "title": "mojito",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "cuba libre",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "1 litro de mojito - cuba libre",
+                            "description": "",
+                            "value": "35"
+                        },
+                        {
+                            "title": "fernet com coca-cola",
+                            "description": "",
+                            "value": "25"
+                        },
+                        {
+                            "title": "jack & coke",
+                            "description": "",
+                            "value": "25"
+                        },
+                        {
+                            "title": "1 litro de jack & coke",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "vodka nacional com energético",
+                            "description": "",
+                            "value": "25"
+                        },
+                        {
+                            "title": "1 litro de vodka nacional com energetico",
+                            "description": "",
+                            "value": "45"
+                        }
+                    ]
+                },
+                {
+                    "title": "cervejas",
+                    "description": "",
+                    "item": [
+                        {
+                            "title": "regular 350 ml",
+                            "description": "",
+                            "value": "6"
+                        },
+                        {
+                            "title": "premiu 350 ml",
+                            "description": "",
+                            "value": "8"
+                        },
+                        {
+                            "title": "regular 600 ml",
+                            "description": "",
+                            "value": "12"
+                        },
+                        {
+                            "title": "latão 473 ml",
+                            "description": "lata grande",
+                            "value": "8"
+                        },
+                        {
+                            "title": "heineken 330 ml / 350 ml",
+                            "description": "",
+                            "value": "10"
+                        },
+                        {
+                            "title": "heineken 473 ml",
+                            "description": "",
+                            "value": "12"
+                        },
+                        {
+                            "title": "heineken 600 ml",
+                            "description": "",
+                            "value": "16"
+                        },
+                        {
+                            "title": "hocus pocus 500 ml",
+                            "description": "rio craft beer (artesanal)",
+                            "value": "25"
+                        }
+                    ]
+                },
+                {
+                    "title": "doses",
+                    "description": "",
+                    "item": [
+                        {
+                            "title": "cachaça gabriela",
+                            "description": "",
+                            "value": "8"
+                        },
+                        {
+                            "title": "tequila",
+                            "description": "",
+                            "value": "18"
+                        },
+                        {
+                            "title": "vodka nacional",
+                            "description": "vodka nacional",
+                            "value": "15"
+                        },
+                        {
+                            "title": "vodka absolut",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "rum / gim",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "red label / ballantines",
+                            "description": "",
+                            "value": "20"
+                        },
+                        {
+                            "title": "jack daniels / jim bean",
+                            "description": "",
+                            "value": "22"
+                        },
+                        {
+                            "title": "fernet",
+                            "description": "",
+                            "value": "22"
+                        }
+                    ]
                 }
             ]
         },
         {
-            "name": "cervejas",
-            "item": [
-                {
-                    "title": "regular 350ml",
-                    "description": "",
-                    "value": "6"
-                }
-            ]
-        },
-        {
-            "name": "doses",
-            "item": [
-                {
-                    "title": "cachaça gabriela",
-                    "description": "",
-                    "value": "8"
-                }
-            ]
+            "title": "restaurante",
+            "description": "",
+            "item": []
         }
     ]
 }

@@ -2194,18 +2194,18 @@
         }
 
         function orange_content ($object) {
-            $is_return = '';
-            $is_return .= is_true_key($object, 'title') ? orange_title([ 'title' => '' ]) : '';
-            $is_return .= is_first_word(get_post_field('post_content', get_post()), '<iframe') ? orange_thumbnail([
+            $is_content = '';
+            $is_content .= is_true_key($object, 'title') ? orange_title([ 'title' => '' ]) : '';
+            $is_content .= is_first_word(get_post_field('post_content', get_post()), '<iframe') ? orange_thumbnail([
                 'content' => get_post_field('post_content', get_post()),
                 'id' => get_post_field('post_name', get_post()),
             ]) : '';
-            $is_return .= is_first_word(get_post_field('post_content', get_post()), '<img') ? orange_carousel([
+            $is_content .= is_first_word(get_post_field('post_content', get_post()), '<img') ? orange_carousel([
                 'content' => get_post_field('post_content', get_post()),
                 'id' => get_post_field('post_name', get_post()),
             ]) : '';
             if (is_first_word(get_post_field('post_excerpt', get_post()), '<img')): else:
-                $is_return .= is_true_variable(get_post_field('post_excerpt', get_post())) ? orange_config_selector (
+                $is_content .= is_true_variable(get_post_field('post_excerpt', get_post())) ? orange_config_selector (
                     [
                         'class' => 'excerpt',
                         'style' => [
@@ -2221,7 +2221,12 @@
                     ],
                 ) : '';
             endif;
-            return orange_config_selector (
+            $is_content .= is_true_key($object, 'menu') ? orange_menu() : '';
+            $is_return = '';
+            $is_return .= is_true_key($object, 'margin')
+            ? (is_category() ? orange_config_selector([ 'id' => get_post_field('post_name', get_post()), 'style' => [ 'height' => '2rem' ] ]) : '')
+            : '';
+            $is_return .= orange_config_selector (
                 [
                     "style" => [
                         'margin' => '0 0 1rem 0',
@@ -2230,10 +2235,11 @@
                 ],
                 [
                     'closed' => true,
-                    'content' => $is_return,
+                    'content' => $is_content,
                     'name' => 'section',
                 ],
             );
+            return $is_return;
         }
 
         function orange_page_main_content () {
@@ -2256,37 +2262,115 @@
             return $is_return;
         };
 
-        function orange_page_menu_content () {
+        function orange_menu () {
             global $JSON;
-            $is_return = '';
-            $is_return .= orange_content([ 'title' => true ]);
-            $is_return .= '<table class="table table-striped table-hover m-0">';
+            $is_container = '';
+            for ($x = 0; $x < sizeof($JSON->menu); $x++):
+                for ($y = 0; $y < sizeof($JSON->menu[$x]->item); $y++):
+                    $is_container .= is_true_variable($JSON->menu[$x]->item[$y]->title) ? orange_config_selector (
+                        [
+                            'class' => is_true_variable($JSON->menu[$x]->item[$y]->description) ? [ 'm-0' ] : [],
+                        ],
+                        [
+                            'closed' => true,
+                            'content' => $JSON->menu[$x]->item[$y]->title,
+                            'name' => 'h4',
+                        ],
+                    ) : '';
+                    $is_container .= is_true_variable($JSON->menu[$x]->item[$y]->description) ? orange_config_selector (
+                        [],
+                        [
+                            'closed' => true,
+                            'content' => $JSON->menu[$x]->item[$y]->description,
+                            'name' => 'p',
+                        ],
+                    ) : '';
+                    $is_content = '';
+                    $is_content .= '<thead>';
+                        $is_content .= '<tr>';
+                            $is_content .= '<th width=\'' . 45 . '%' . '\'>' . '<p>' . __('Produto') . '</p>' . '</th>';
+                            $is_content .= '<th width=\'' . 45 . '%' . '\'>' . '<p>' . __('Descrição') . '</p>' . '</th>';
+                            $is_content .= '<th width=\'' . 10 . '%' . '\'>' . '<p>' . __('Valor') . '</p>' . '</th>';
+                        $is_content .= '</tr>';
+                    $is_content .= '</thead>';
+                    $is_content .= '<tbody>';
+                    for ($z = 0; $z < sizeof($JSON->menu[$x]->item[$y]->item); $z++):
+                        if (is_true_variable ($JSON->menu[$x]->item[$y]->item[$z]->title)):
+                            if (is_true_variable ($JSON->menu[$x]->item[$y]->item[$z]->value)):
+                                $is_content .= '<tr>';
+                                        $is_content .= '<td>';
+                                            $is_content .= is_true_variable ($JSON->menu[$x]->item[$y]->item[$z]->title)
+                                            ? '<p>' . trim($JSON->menu[$x]->item[$y]->item[$z]->title) . '</p>'
+                                            : '';
+                                        $is_content .= '</td>';
+                                        $is_content .= '<td>';
+                                            $is_content .= is_true_variable ($JSON->menu[$x]->item[$y]->item[$z]->description)
+                                            ? '<p>' . trim($JSON->menu[$x]->item[$y]->item[$z]->description) . '</p>'
+                                            : '';
+                                        $is_content .= '</td>';
+                                        $is_content .= '<td>';
+                                            $is_content .= is_true_variable ($JSON->menu[$x]->item[$y]->item[$z]->value)
+                                            ? '<p>' . number_format(trim($JSON->menu[$x]->item[$y]->item[$z]->value), 2, ',', '.') . '</p>'
+                                            : '';
+                                        $is_content .= '</td>';
+                                $is_content .= '</tr>';
+                            endif;
+                        endif;
+                    endfor;
+                    $is_content .= '</tbody>';
+                    $is_container .= orange_config_selector (
+                        [],
+                        [
+                            'closed' => true,
+                            'content' => orange_config_selector (
+                                [
+                                    'class' => [
+                                        'table',
+                                        'table-striped',
+                                        'table-hover',
+                                        'm-0',
+                                    ]
+                                ],
+                                [
+                                    'closed' => true,
+                                    'content' => $is_content,
+                                    'name' => 'table',
+                                ],
+                            ),
+                            'name' => 'div',
+                        ],
+                    );                    
+                endfor;
+            endfor;
+            return orange_config_selector (
+                [
+                    'class' => 'excerpt',
+                    "style" => [
+                        'margin' => '1rem 0 0 0',
+                    ],
+                ],
+                [
+                    'closed' => true,
+                    'content' => $is_container,
+                    'name' => 'div',
+                ],
+            );
+        };
 
-                $is_return .= '<thead>';
-                    $is_return .= '<tr>';
-                        $is_return .= '<th>' . 'Produto' . '</th>';
-                        $is_return .= '<th>' . 'Descrição' . '</th>';
-                        $is_return .= '<th>' . 'Valor' . '</th>';
-                    $is_return .= '</tr>';
-                $is_return .= '</thead>';
-
-                $is_return .= '<tbody>';
-                    $is_return .= '<tr>';
-                        $is_return .= '<td>' . 'Agua Grande' . '</td>';
-                        $is_return .= '<td>' . 'Agua Grande' . '</td>';
-                        $is_return .= '<td>' . 'R$10,00' . '</td>';
-                    $is_return .= '</tr>';
-                $is_return .= '</tbody>';
-
-            $is_return .= '</table>';
-            return $is_return;
+        function orange_page_menu_content () {
+            return orange_content([
+                'margin' => false,
+                'menu' => true,
+                'title' => true,
+            ]);
         };
 
         function orange_page_single_content () {
-            $is_return = '';
-            $is_return .= is_category() ? orange_config_selector([ 'id' => get_post_field('post_name', get_post()), 'style' => [ 'height' => '2rem' ] ]) : '';
-            $is_return .= orange_content([ 'title' => true ]);
-            return $is_return;
+            return orange_content([
+                'margin' => true,
+                'menu' => false,
+                'title' => true,
+            ]);
         };
 
         function orange_template_part ($content) {
