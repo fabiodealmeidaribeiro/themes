@@ -451,13 +451,11 @@
             $is_content = str_replace('</li>', '</p></li>', $is_content);
             $is_content = str_replace('<p><p>', '<p>', $is_content);
             $is_content = str_replace('</p></p>', '</p>', $is_content);
-            
             $is_content = str_replace('width="600"', '', $is_content);
             $is_content = str_replace('height="450"', '', $is_content);
             $is_content = str_replace('style="border:0;"', '', $is_content);
             $is_content = str_replace('allowfullscreen=""', '', $is_content);
             $is_content = str_replace('loading="lazy"', '', $is_content);
-
             $is_content = str_replace('referrerpolicy="no-referrer-when-downgrade"', '', $is_content);
             $is_content = is_true_variable($JSON->app->highlight)
             ? orange_highlight([ 'array' => $JSON->app->highlight, 'content' => $is_content, ])
@@ -1090,7 +1088,6 @@
             $is_return = '';
             $is_return .= '<footer>';
                 $is_return .= '<div id=\'footer-row\'>';
-
                     $is_return .= orange_widget([
                         'id' => 'footer',
                         'number' => orange_widget_check ([
@@ -1098,7 +1095,6 @@
                             'index' => 'footer',
                         ]),
                     ]);
-
                     $is_return .= '<div class=\'widget-container\' id=\'widget-attention\' >';
                         if (is_true_variable($JSON->hostel->whatsapp->href->text) && is_true_variable($JSON->hostel->whatsapp->href->phone)):
                             $is_return .= '<p>';
@@ -1246,8 +1242,8 @@
                 $is_return .= '</div>';
             $is_return .= '</footer>';
             $is_return .= orange_powered([
-                // 'date' => '2022-04-30',
-                'date' => '2022-02-28',
+                'date' => '2022-06-10',
+                // 'date' => '2022-02-28',
                 'powered' => 'Clockwork Orange Development',
                 'url' => 'https://clockworkorange.com.br/',
             ]);
@@ -1527,14 +1523,24 @@
 
         function orange_archive_list($object) {
             $is_array = [];
-            foreach (new DirectoryIterator(str_replace('/', '\\', wp_upload_dir()['path'])) as $is_archive):
-                in_array(strtolower($is_archive->getExtension()), [ 'jpg', 'jpeg', 'png' ]) ? (is_first_word($is_archive->getFilename(), is_true_key($object, 'prefix') ? $object['prefix'] : '') ? array_push($is_array, $is_archive->getFilename()) : null) : null;
+            $ASD = str_replace('themes/orange', 'uploads', __DIR__);
+            foreach (new DirectoryIterator($ASD) as $is_archive):
+                in_array(strtolower($is_archive->getExtension()), [ 'jpg' ])
+                ? (is_first_word($is_archive->getFilename(), is_true_key($object, 'prefix') ? $object['prefix'] : '')
+                ? array_push($is_array, $is_archive->getFilename()) : null)
+                : null;
             endforeach;
             $is_random = is_true_variable($is_array) ? (is_true_key($object, 'random') ? array_rand($is_array) : 0) : 0;
-            $is_path = is_true_variable($is_array) ? str_replace('/', '\\', wp_upload_dir()['path']) . '\\' . $is_array[$is_random] : '';
-            $is_url = is_true_variable($is_array) ? str_replace('\\', '/', wp_upload_dir()['url']) . '/' . $is_array[$is_random] : '';
+            $is_path = is_true_variable($is_array) ? $ASD . '/' . $is_array[$is_random] : '';
+            $is_server = '';
+            $is_server .= 'http://';
+            $is_server .= $_SERVER['SERVER_NAME'];
+            $is_server .= $_SERVER['REQUEST_URI'];
+            $is_server .= 'wp-content/uploads/';
+            $is_url = is_true_variable($is_array) ? $is_server . $is_array[$is_random] : '';
             return file_exists($is_path) ? $is_url : '';
         }
+
 
         function orange_header ($object) {
             $is_return = '';
@@ -2310,7 +2316,7 @@
                                         $is_content .= '</td>';
                                         $is_content .= '<td>';
                                             $is_content .= is_true_variable ($JSON->menu[$x]->item[$y]->item[$z]->value)
-                                            ? '<p>' . number_format(trim($JSON->menu[$x]->item[$y]->item[$z]->value), 2, ',', '.') . '</p>'
+                                            ? '<p>' . 'r$' . number_format(trim($JSON->menu[$x]->item[$y]->item[$z]->value), 2, ',', '.') . '</p>'
                                             : '';
                                         $is_content .= '</td>';
                                 $is_content .= '</tr>';
