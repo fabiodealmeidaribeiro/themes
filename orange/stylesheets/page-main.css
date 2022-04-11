@@ -50,6 +50,7 @@
   transition: all .5s ease;
 }
 
+/*
 .main-wrapper:hover {
   cursor: pointer;
   transform: rotateY(180deg);
@@ -63,8 +64,9 @@
     height: 100%;
     backface-visibility: hidden;
 }
+*/
 
-.main-back-wrapper { transform: rotateY(180deg); }
+/* .main-back-wrapper { transform: rotateY(180deg); } */
 
 .main-content { height: 100%; width: 100%; }
 

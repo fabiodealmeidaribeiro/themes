@@ -1521,26 +1521,42 @@
             return $is_return;
         }
 
-        function orange_archive_list($object) {
-            $is_array = [];
-            $ASD = str_replace('themes/orange', 'uploads', __DIR__);
-            foreach (new DirectoryIterator($ASD) as $is_archive):
-                in_array(strtolower($is_archive->getExtension()), [ 'jpg' ])
-                ? (is_first_word($is_archive->getFilename(), is_true_key($object, 'prefix') ? $object['prefix'] : '')
-                ? array_push($is_array, $is_archive->getFilename()) : null)
-                : null;
-            endforeach;
-            $is_random = is_true_variable($is_array) ? (is_true_key($object, 'random') ? array_rand($is_array) : 0) : 0;
-            $is_path = is_true_variable($is_array) ? $ASD . '/' . $is_array[$is_random] : '';
-            $is_server = '';
-            $is_server .= 'http://';
-            $is_server .= $_SERVER['SERVER_NAME'];
-            $is_server .= $_SERVER['REQUEST_URI'];
-            $is_server .= 'wp-content/uploads/';
-            $is_url = is_true_variable($is_array) ? $is_server . $is_array[$is_random] : '';
-            return file_exists($is_path) ? $is_url : '';
-        }
+        // function orange_archive_list ($object) {
+        //     $is_array = [];
+        //     $ASD = str_replace('themes/orange', 'uploads', __DIR__);
+        //     foreach (new DirectoryIterator($ASD) as $is_archive):
+        //         if (in_array(strtolower($is_archive->getExtension()), [ 'jpg' ])):
+        //             if (is_first_word($is_archive->getFilename(), is_true_key($object, 'prefix') ? $object['prefix'] : '')):
+        //                 array_push($is_array, $is_archive->getFilename());
+        //             endif;
+        //         endif;
+        //     endforeach;
+        //     $is_random = is_true_variable($is_array) ? (is_true_key($object, 'random') ? array_rand($is_array) : 0) : 0;
+        //     $is_path = is_true_variable($is_array) ? $ASD . '/' . $is_array[$is_random] : '';
+        //     $is_server = '';
+        //     $is_server .= 'http://';
+        //     $is_server .= $_SERVER['SERVER_NAME'];
+        //     $is_server .= $_SERVER['REQUEST_URI'];
+        //     $is_server .= 'wp-content/uploads/';
+        //     $is_url = is_true_variable($is_array) ? $is_server . $is_array[$is_random] : '';
+        //     return file_exists($is_path) ? $is_url : '';
+        // }
 
+        // function orange_archive ($object) {
+        //     $is_server = '';
+        //     $is_server .= str_replace('themes\orange', 'uploads', __DIR__);
+        //     $is_server .= '/';
+        //     $is_server .= is_true_key($object, 'archive') ? $object['archive'] : '';
+        //     $is_server = str_replace('/', '\\', $is_server);
+        //     $is_url = '';
+        //     $is_url .= 'http://';
+        //     $is_url .= $_SERVER['SERVER_NAME'];
+        //     $is_url .= $_SERVER['REQUEST_URI'];
+        //     $is_url .= 'wp-content/uploads';
+        //     $is_url .= '/';
+        //     $is_url .= is_true_key($object, 'archive') ? $object['archive'] : '';
+        //     return file_exists($is_server) ? $is_url : '';
+        // }
 
         function orange_header ($object) {
             $is_return = '';
@@ -1548,10 +1564,11 @@
                 if ($object['type'] === 'bloginfo'):
                     $is_return .= '<header>';
                         $is_content = '';
-                        $is_content .= is_true_variable(orange_archive_list([ 'prefix' => 'logo' ])) ? orange_text_content([
+                        $is_content .= orange_text_content([
                             'content' => orange_config_selector (
                                 [
-                                    'src' => orange_archive_list([ 'prefix' => 'logo' ]),
+                                    // 'src' => orange_archive([ 'archive' => 'logo.jpg' ]),
+                                    'src' => 'http://puravidahostel.com.br/site/wp-content/uploads/logo.jpg',
                                     'alt' => is_true_variable(get_bloginfo('name'))
                                     ? get_bloginfo('name') . (is_true_variable(get_bloginfo('description')) ? ' | ' . get_bloginfo('description') : '')
                                     : '',
@@ -1564,7 +1581,7 @@
                             ),
                             'url' => [ 'href' => get_home_url('/'), ],
                             'wrapper' => 'picture',
-                        ]) : '';
+                        ]);
                         $is_bloginfo = '';
                         $is_bloginfo .= is_true_variable(get_bloginfo('name')) ? orange_text_content([
                             'content' => get_bloginfo('name'),
@@ -1598,7 +1615,7 @@
                         ) : '';
                         $is_style = orange_style_background ([
                             'type' => 'normal',
-                            'url' => orange_archive_list([ 'prefix' => 'header', 'random' => true ]),
+                            'url' => 'http://puravidahostel.com.br/site/wp-content/uploads/header.jpg',
                         ]);
                         $is_style = array_merge($is_style, [
                             'height' => variable::number['thumbnail']['height'],
