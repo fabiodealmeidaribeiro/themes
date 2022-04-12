@@ -1145,11 +1145,11 @@
                         ],
                     ) : '';
                     $is_widget_navigation = 0;
-                    $is_widget_navigation += is_true_variable(orange_widget_list ([
-                        'exclude' => $JSON->app->category->exclude,
-                        'title' => is_true_variable($JSON->app->category->title) ? $JSON->app->category->title : '',
-                        'type' => 'category'
-                    ])) ? 1 : 0;
+                    // $is_widget_navigation += is_true_variable(orange_widget_list ([
+                    //     'exclude' => $JSON->app->category->exclude,
+                    //     'title' => is_true_variable($JSON->app->category->title) ? $JSON->app->category->title : '',
+                    //     'type' => 'category'
+                    // ])) ? 1 : 0;
                     $is_widget_navigation += is_true_variable(orange_widget_list ([
                         'exclude' => $JSON->app->page->exclude,
                         'title' => is_true_variable($JSON->app->page->title) ? $JSON->app->page->title : '',
@@ -1157,11 +1157,11 @@
                     ])) ? 1 : 0;
                     $is_widget_navigation += is_true_variable(orange_category_widget_post_list($JSON->app->category->widget->navigation)) ? 1 : 0;
                     $is_content = '';
-                    $is_content .= orange_widget_list ([
-                        'exclude' => $JSON->app->category->exclude,
-                        'title' => is_true_variable($JSON->app->category->title) ? $JSON->app->category->title : '',
-                        'type' => 'category',
-                    ]);
+                    // $is_content .= orange_widget_list ([
+                    //     'exclude' => $JSON->app->category->exclude,
+                    //     'title' => is_true_variable($JSON->app->category->title) ? $JSON->app->category->title : '',
+                    //     'type' => 'category',
+                    // ]);
                     $is_content .= orange_widget_list ([
                         'exclude' => $JSON->app->page->exclude,
                         'title' => is_true_variable($JSON->app->page->title) ? $JSON->app->page->title : '',
