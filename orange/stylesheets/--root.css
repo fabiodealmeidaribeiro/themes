@@ -38,15 +38,15 @@
   --transition : all .25s ease;
 
   --brand-box-shadow :
-    0 0 calc(.313rem * 1) 0 black,
-    0 0 calc(.313rem * 2) 0 black,
-    0 0 calc(.313rem * 3) 0 black;
+    0 0 calc(.313rem * 1) 0 rgba(0, 0, 0, .25),
+    0 0 calc(.313rem * 2) 0 rgba(0, 0, 0, .25),
+    0 0 calc(.313rem * 3) 0 rgba(0, 0, 0, .25);
 
   --brand-text-shadow :
-    1px 1px 1px black,
-    0 0 calc(.313rem * 1) black,
-    0 0 calc(.313rem * 2) black,
-    0 0 calc(.313rem * 3) black;
+    1px 1px 1px rgba(0, 0, 0, .25),
+    0 0 calc(.313rem * 1) rgba(0, 0, 0, .25),
+    0 0 calc(.313rem * 2) rgba(0, 0, 0, .25),
+    0 0 calc(.313rem * 3) rgba(0, 0, 0, .25);
 
   --side-button-width : calc(var(--margin) * 3);
   --side-button-transition : all .125s ease;

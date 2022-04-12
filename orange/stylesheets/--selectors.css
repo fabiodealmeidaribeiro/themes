@@ -25,9 +25,8 @@ main {
   margin: 0 1rem;
 }
 
-footer {
-  margin: 1rem 1rem 3rem 1rem;
-}
+/* footer { margin: 1rem 1rem 3rem 1rem; } */
+footer { margin: 0 1rem 3rem 1rem; }
 
 a,
 b,

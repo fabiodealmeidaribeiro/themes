@@ -277,7 +277,9 @@
             $is_return .= orange_config_selector (
                 [
                     'name' => 'author',
-                    'content' => is_true_variable(get_bloginfo('name')) ? trim(get_bloginfo('name')) : trim($JSON->hostel->title),
+                    'content' => is_true_variable(get_bloginfo('name'))
+                    ? trim(get_bloginfo('name'))
+                    : trim($JSON->hostel->title),
                 ],
                 [
                     'closed' => false,
@@ -288,7 +290,9 @@
             $is_return .= orange_config_selector (
                 [
                     'name' => 'description',
-                    'content' => is_true_variable(get_bloginfo('description')) ? trim(get_bloginfo('description')) : trim($JSON->hostel->description),
+                    'content' => is_true_variable(get_bloginfo('description'))
+                    ? trim(get_bloginfo('description'))
+                    : trim($JSON->hostel->description),
                 ],
                 [
                     'closed' => false,
@@ -721,14 +725,14 @@
                 endwhile;
                 wp_reset_postdata();
             endif;
-            return orange_config_selector (
+            return ($is_query->post_count > 1) ? orange_config_selector (
                 [ 'class' => 'post-itemsmenu', ],
                 [
                     'closed' => true,
                     'content' => $is_return,
                     'name' => 'div',
                 ],
-            );
+            ) : '';
         };
 
         function orange_category_main_post_list ($object) {
@@ -1521,42 +1525,55 @@
             return $is_return;
         }
 
-        // function orange_archive_list ($object) {
-        //     $is_array = [];
-        //     $ASD = str_replace('themes/orange', 'uploads', __DIR__);
-        //     foreach (new DirectoryIterator($ASD) as $is_archive):
-        //         if (in_array(strtolower($is_archive->getExtension()), [ 'jpg' ])):
-        //             if (is_first_word($is_archive->getFilename(), is_true_key($object, 'prefix') ? $object['prefix'] : '')):
-        //                 array_push($is_array, $is_archive->getFilename());
-        //             endif;
-        //         endif;
-        //     endforeach;
-        //     $is_random = is_true_variable($is_array) ? (is_true_key($object, 'random') ? array_rand($is_array) : 0) : 0;
-        //     $is_path = is_true_variable($is_array) ? $ASD . '/' . $is_array[$is_random] : '';
-        //     $is_server = '';
-        //     $is_server .= 'http://';
-        //     $is_server .= $_SERVER['SERVER_NAME'];
-        //     $is_server .= $_SERVER['REQUEST_URI'];
-        //     $is_server .= 'wp-content/uploads/';
-        //     $is_url = is_true_variable($is_array) ? $is_server . $is_array[$is_random] : '';
-        //     return file_exists($is_path) ? $is_url : '';
-        // }
+        function orange_archive_list ($object) {
+            $is_array = [];
+            $is_format = [ 'jpg' ];
+            $is_pattern = '';
+            $is_pattern .= '/^';
+            $is_pattern .= '[a-z]{0,9}';
+            $is_pattern .= '\-';
+            $is_pattern .= '[0-9]{0,9}';
+            $is_pattern .= '\.';
+            if (is_true_variable($is_format)):
+                $is_pattern .= '(';
+                    for ($i = 0; $i < sizeof($is_format); $i++):
+                        $is_pattern .= $is_format[$i];
+                        $is_pattern .= sizeof($is_format) <= 1 ? '' : ($i < sizeof($is_format) ? '|' : '');
+                    endfor;
+                $is_pattern .= ')';
+            endif;
+            $is_pattern .= '$/i';
+            $is_server = str_replace('themes/orange', 'uploads', __DIR__);
+            foreach (new DirectoryIterator($is_server) as $is_archive):
+                if (in_array(strtolower($is_archive->getExtension()), $is_format)):
+                    if (is_first_word($is_archive->getFilename(), is_true_key($object, 'archive') ? $object['archive'] : '')):
+                        if (preg_match($is_pattern, $is_archive->getFilename())):
+                            array_push($is_array, $is_archive->getFilename());
+                        endif;
+                    endif;
+                endif;
+            endforeach;
+            $is_random = is_true_variable($is_array) ? (is_true_key($object, 'random') ? array_rand($is_array) : 0) : 0;
+            $is_server = is_true_variable($is_array) ? $is_server . '/' . $is_array[$is_random] : '';
+            $is_url = 'http://';
+            $is_url .= $_SERVER['SERVER_NAME'];
+            $is_url .= str_replace('index.php', 'wp-content/uploads', $_SERVER['SCRIPT_NAME']);
+            return file_exists($is_server) ? (is_true_variable($is_array) ? $is_url . '/' . $is_array[$is_random] : '') : '';
+        }
 
-        // function orange_archive ($object) {
-        //     $is_server = '';
-        //     $is_server .= str_replace('themes\orange', 'uploads', __DIR__);
-        //     $is_server .= '/';
-        //     $is_server .= is_true_key($object, 'archive') ? $object['archive'] : '';
-        //     $is_server = str_replace('/', '\\', $is_server);
-        //     $is_url = '';
-        //     $is_url .= 'http://';
-        //     $is_url .= $_SERVER['SERVER_NAME'];
-        //     $is_url .= $_SERVER['REQUEST_URI'];
-        //     $is_url .= 'wp-content/uploads';
-        //     $is_url .= '/';
-        //     $is_url .= is_true_key($object, 'archive') ? $object['archive'] : '';
-        //     return file_exists($is_server) ? $is_url : '';
-        // }
+        function orange_archive ($object) {
+            $is_server = '';
+            $is_server .= str_replace('themes/orange', 'uploads', __DIR__);
+            $is_server .= '/';
+            $is_server .= is_true_key($object, 'archive') ? $object['archive'] : '';
+            $is_url = '';
+            $is_url .= 'http://';
+            $is_url .= $_SERVER['SERVER_NAME'];
+            $is_url .= str_replace('index.php', 'wp-content/uploads', $_SERVER['SCRIPT_NAME']);
+            $is_url .= '/';
+            $is_url .= is_true_key($object, 'archive') ? $object['archive'] : '';
+            return file_exists($is_server) ? $is_url : '';
+        }
 
         function orange_header ($object) {
             $is_return = '';
@@ -1567,8 +1584,7 @@
                         $is_content .= orange_text_content([
                             'content' => orange_config_selector (
                                 [
-                                    // 'src' => orange_archive([ 'archive' => 'logo.jpg' ]),
-                                    'src' => 'http://puravidahostel.com.br/site/wp-content/uploads/logo.jpg',
+                                    'src' => orange_archive([ 'archive' => 'logo.jpg' ]),
                                     'alt' => is_true_variable(get_bloginfo('name'))
                                     ? get_bloginfo('name') . (is_true_variable(get_bloginfo('description')) ? ' | ' . get_bloginfo('description') : '')
                                     : '',
@@ -1615,7 +1631,7 @@
                         ) : '';
                         $is_style = orange_style_background ([
                             'type' => 'normal',
-                            'url' => 'http://puravidahostel.com.br/site/wp-content/uploads/header.jpg',
+                            'url' => orange_archive_list([ 'archive' => 'header', 'random' => true ]),
                         ]);
                         $is_style = array_merge($is_style, [
                             'height' => variable::number['thumbnail']['height'],
@@ -2247,7 +2263,7 @@
             $is_content .= is_true_key($object, 'menu') ? orange_menu() : '';
             $is_return = '';
             $is_return .= is_true_key($object, 'margin')
-            ? (is_category() ? orange_config_selector([ 'id' => get_post_field('post_name', get_post()), 'style' => [ 'height' => '2rem' ] ]) : '')
+            ? (is_category() ? orange_config_selector([ 'id' => get_post_field('post_name', get_post()) ]) : '')
             : '';
             $is_return .= orange_config_selector (
                 [
@@ -2427,7 +2443,6 @@
                                 endwhile;
                             endif;
                         echo is_category() ? orange_category_button_list() : '';
-                        echo is_category() ? orange_config_selector([ 'style' => [ 'height' => '1.5rem' ] ]) : '';
                     echo '</article>';
                 echo '</main>';
             get_footer();
