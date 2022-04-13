@@ -4,30 +4,59 @@
             "O nosso horário de atendimento para orçamentos e reservas é de segunda a sexta, das 10h00 às 17h50.",
             "Caso prefira, verifique as disponibilidades abaixo."
         ],
-        "category": {
-            "title": "",
-            "exclude": [
-                "10",
-                "11",
+        "main": [
+            "3"
+        ],
+        "widgets": [
+            {
+                "title": "footer",
+                "amount": 2
+            }
+        ],
+        "widget": {
+            "attention": [
                 "14"
             ],
-            "main": [
-                "3"
-            ],
-            "widget": {
-                "navigation": [
+            "navigation": [
+                "10",
+                "11"
+            ]
+        },
+        "category": [
+            {
+                "title": "",
+                "exclude": [
                     "10",
                     "11",
                     "14"
                 ]
             }
-        },
-        "page": {
-            "title": "",
-            "exclude": [
-                "10"
-            ]
-        },
+        ],
+        "page": [
+            {
+                "title": "Políticas",
+                "exclude": [
+                    "10",
+                    "916",
+                    "923",
+                    "431"
+                ]
+            },
+            {
+                "title": "Bar do Deck",
+                "exclude": [
+                    "10",
+                    "925",
+                    "928",
+                    "930",
+                    "932",
+                    "923",
+                    "916",
+                    "953",
+                    "963"
+                ]
+            }
+        ],
         "clear": [],
         "highlight": [],
         "meta": {
@@ -192,13 +221,7 @@
                     "url": ""
                 }
             ]
-        },
-        "widget": [
-            {
-                "title": "footer",
-                "amount": 2
-            }
-        ]
+        }
     },
     "hostel": {
         "title": "Pura Vida Hostel",
@@ -206,22 +229,10 @@
         "address": "R. Saint Roman, 20 - Copacabana, Rio de Janeiro - RJ, 22071-060.",
         "maps": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.1785087065064!2d-43.194357185231524!3d-22.98046238497452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bd53e52271295%3A0x9e525db4ad77d422!2sPura%20Vida%20Hostel!5e0!3m2!1spt-BR!2sbr!4v1643725276099!5m2!1spt-BR!2sbr",
         "whatsapp": {
-            "title": "O nosso Whatsapp é:",
-            "href": {
-                "phone": "5521990286961",
-                "text": "Ol%C3%A1!%20Vim%20do%20site%20do%20Pura%20Vida%2C%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20hostel."
-            }
+            "phone": "5521990286961",
+            "text": "Ol%C3%A1!%20Vim%20do%20site%20do%20Pura%20Vida%2C%20e%20gostaria%20de%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20hostel."
         },
         "easiness": [
-            {
-                "id": "",
-                "name": "heart",
-                "target": false,
-                "title": "Amizade",
-                "description": "",
-                "url": "",
-                "active": true
-            },
             {
                 "id": "",
                 "name": "bonfire",
@@ -290,6 +301,15 @@
                 "name": "wifi",
                 "target": false,
                 "title": "Wi-fi",
+                "description": "",
+                "url": "",
+                "active": true
+            },
+            {
+                "id": "",
+                "name": "heart",
+                "target": false,
+                "title": "Amizade",
                 "description": "",
                 "url": "",
                 "active": true

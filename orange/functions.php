@@ -386,10 +386,10 @@
             };
             class Element { public $amount, $array, $title; };
             $is_index = [];
-            for ($i = 0; $i < sizeof($JSON->app->widget); $i++):
+            for ($i = 0; $i < sizeof($JSON->app->widgets); $i++):
                 $is_index[$i] = new Element();
-                $is_index[$i]->title = $JSON->app->widget[$i]->title;
-                $is_index[$i]->amount = $JSON->app->widget[$i]->amount;
+                $is_index[$i]->title = $JSON->app->widgets[$i]->title;
+                $is_index[$i]->amount = $JSON->app->widgets[$i]->amount;
             endfor;
             $is_indexes = [];
             for ($i = 0; $i < count($is_index); $i++):
@@ -837,8 +837,8 @@
 
         function orange_category_widget_post_list ($object) {
             $is_return = '';
-            for ($i = 0; $i < sizeof($object); $i++):
-                $is_query = new WP_Query([ 'cat' => $object[$i] ]);
+            for ($i = 0; $i < sizeof($object['array']); $i++):
+                $is_query = new WP_Query([ 'cat' => $object['array'][$i] ]);
                 if ($is_query->have_posts()):
                     $is_return .= '<div class=\'widget-wrapper\'>';
                         $is_return .= '<ul>';
@@ -847,7 +847,7 @@
                                 [
                                     'closed' => true,
                                     'content' => orange_text_content([
-                                        'content' => ucwords(get_cat_name($object[$i])) . ':',
+                                        'content' => ucwords(get_cat_name($object['array'][$i])) . ':',
                                         'wrapper' => [ 'p', 'b' ],
                                     ]),
                                     'name' => 'li',
@@ -858,13 +858,6 @@
                                 $is_post_title = '';
                                 if (is_true_variable(get_post_field('post_title', get_post()))):
                                     $is_post_title .= ucwords(trim(get_post_field('post_title', get_post())));
-                                endif;
-                                $is_secondary_title = '';
-                                if (is_true_variable(get_post_field('_secondary_title', get_post()))):
-                                    $is_secondary_title .= '&nbsp;';
-                                    $is_secondary_title .= '(';
-                                    $is_secondary_title .= strtolower(trim(get_post_field('_secondary_title', get_post())));
-                                    $is_secondary_title .= ')';
                                 endif;
                                 $is_content = '';
                                 $is_content .= is_true_variable($is_post_title) ? orange_config_selector (
@@ -878,6 +871,13 @@
                                         'name' => '',
                                     ],
                                 ) : '';
+                                $is_secondary_title = '';
+                                if (is_true_variable(get_post_field('_secondary_title', get_post()))):
+                                    $is_secondary_title .= '&nbsp;';
+                                    $is_secondary_title .= '(';
+                                    $is_secondary_title .= strtolower(trim(get_post_field('_secondary_title', get_post())));
+                                    $is_secondary_title .= ')';
+                                endif;
                                 $is_content .= is_true_variable($is_secondary_title) ? orange_config_selector (
                                     [],
                                     [
@@ -1064,28 +1064,81 @@
             endfor;
         }
 
+
+
+
         function orange_widget_list ($object) {
             $is_return = '';
-            if (is_true_variable(orange_wp_list([ 'type' => $object['type'], 'exclude' => is_true_key($object, 'exclude') ? $object['exclude'] : '' ]))):
-                $is_return .= is_true_key($object, 'title') ? orange_config_selector (
-                    [],
-                    [
-                        'closed' => true,
-                        'content' => orange_text_content([
-                            'content' => $object['title'],
-                            'wrapper' => [ 'p', 'b' ],
-                        ]),
-                        'name' => 'div',
-                    ],
-                ): '';
-                $is_return .= is_true_key($object, 'type') ? orange_wp_list([
-                    'type' => $object['type'],
-                    'exclude' => is_true_key($object, 'exclude') ? $object['exclude'] : '',
-                    'wrapper' => [ 'ul' ],
-                ]) : '';
+            if(is_true_key($object, 'array')):
+                for ($i = 0; $i < sizeof($object['array']); $i++):
+                    $is_return .= is_true_variable($object['array'][$i]->title) ? orange_config_selector (
+                        [],
+                        [
+                            'closed' => true,
+                            'content' => orange_text_content([
+                                'content' => $object['array'][$i]->title . ':',
+                                'wrapper' => [ 'p', 'b' ],
+                            ]),
+                            'name' => 'div',
+                        ],
+                    ) : '';
+                    $is_return .= orange_wp_list([
+                        'type' => $object['type'],
+                        'exclude' => $object['array'][$i]->exclude,
+                        'wrapper' => [ 'ul' ],
+                    ]);
+                endfor;
             endif;
             return $is_return;
-        }
+        };
+
+        function orange_run_sentences ($object) {
+            $is_return = '';
+            if (is_true_variable($object['array'])):
+                for ($i = 0; $i < sizeof($object['array']); $i++):
+                    $is_return .= is_true_variable($object['array'][$i]) ? orange_config_selector (
+                        [],
+                        [
+                            'closed' => true,
+                            'content' => trim($object['array'][$i]),
+                            'name' => 'p',
+                        ],
+                    ) : '';
+                endfor;
+            endif;
+            return $is_return;
+        };
+
+        function orange_whatsApp ($object) {
+            $is_return = '';
+            if (is_true_key($object, 'phone')):
+                $is_return .= '<p>';
+                    $is_return .= orange_config_selector (
+                        [],
+                        [
+                            'closed' => true,
+                            'content' => __('O nosso WhatsApp é:'),
+                            'name' => 'em',
+                        ],
+                    );
+                    $is_return .= '<br>';
+
+                    $is_return .= '<b>';
+                        $is_return .= '<a';
+                            $is_return .= ' href=\'';
+                                $is_return .= 'https://api.whatsapp.com/send?phone=' . trim($object['phone']);
+                                $is_return .= is_true_key($object, 'text') ? '&text=' . trim($object['text']) : '';
+                            $is_return .= '\'';
+                            $is_return .= ' target=\'_blank\'';
+                        $is_return .= '>';
+                            $is_return .= orange_format_phone_number($object['phone']);
+                        $is_return .= '</a>';
+                    $is_return .= '</b>';
+
+                $is_return .= '</p>';
+            endif;
+            return $is_return;
+        };
 
         function orange_footer () {
             global $JSON;
@@ -1095,26 +1148,15 @@
                     $is_return .= orange_widget([
                         'id' => 'footer',
                         'number' => orange_widget_check ([
-                            'array' => $JSON->app->widget,
+                            'array' => $JSON->app->widgets,
                             'index' => 'footer',
                         ]),
                     ]);
                     $is_return .= '<div class=\'widget-container\' id=\'widget-attention\' >';
-                        if (is_true_variable($JSON->hostel->whatsapp->href->text) && is_true_variable($JSON->hostel->whatsapp->href->phone)):
-                            $is_return .= '<p>';
-                                $is_return .= is_true_variable($JSON->hostel->whatsapp->title) ? '<em>' . trim($JSON->hostel->whatsapp->title) . '</em>' . '<br>' : '';
-                                $is_return .= '<b>';
-                                    $is_return .= '<a href=\'https://api.whatsapp.com/send?phone=' . trim($JSON->hostel->whatsapp->href->phone) . '&text=' . trim($JSON->hostel->whatsapp->href->text) . '\' target=\'_blank\'>';
-                                        $is_return .= orange_format_phone_number($JSON->hostel->whatsapp->href->phone);
-                                    $is_return .= '</a>';
-                                $is_return .= '</b>';
-                            $is_return .= '</p>';
-                        endif;
-                        if (is_true_variable($JSON->app->attention)):
-                            for ($i = 0; $i < sizeof($JSON->app->attention); $i++):
-                                $is_return .= is_true_variable($JSON->app->attention[$i]) ? '<p>' . trim($JSON->app->attention[$i]) . '</p>' : '';
-                            endfor;
-                        endif;
+                        $is_return .= orange_whatsApp ([ 'phone' => $JSON->hostel->whatsapp->phone, 'text' => $JSON->hostel->whatsapp->text ]);
+                        $is_return .= is_true_variable(orange_run_sentences([ 'array' => $JSON->app->attention ]))
+                        ? orange_run_sentences([ 'array' => $JSON->app->attention ])
+                        : '';
                         $is_return .= orange_config_selector (
                             [ 'class' => 'widget-wrapper' ],
                             [
@@ -1132,6 +1174,7 @@
                                 'name' => 'div',
                             ],
                         );
+                        $is_return .= orange_category_widget_post_list([ 'array' => $JSON->app->widget->attention ]);
                     $is_return .= '</div>';
                     $is_return .= is_true_variable($JSON->app->sidebar->up) ? orange_config_selector (
                         [
@@ -1140,35 +1183,23 @@
                         ],
                         [
                             'closed' => true,
-                            'content' => is_true_variable($JSON->app->sidebar->up) ? orange_drop_list ([ 'array' => $JSON->app->sidebar->up, ]) : '',
+                            'content' => is_true_variable($JSON->app->sidebar->up)
+                            ? orange_drop_list ([ 'array' => $JSON->app->sidebar->up, ])
+                            : '',
                             'name' => 'div',
                         ],
                     ) : '';
-                    $is_widget_navigation = 0;
-                    // $is_widget_navigation += is_true_variable(orange_widget_list ([
-                    //     'exclude' => $JSON->app->category->exclude,
-                    //     'title' => is_true_variable($JSON->app->category->title) ? $JSON->app->category->title : '',
-                    //     'type' => 'category'
-                    // ])) ? 1 : 0;
-                    $is_widget_navigation += is_true_variable(orange_widget_list ([
-                        'exclude' => $JSON->app->page->exclude,
-                        'title' => is_true_variable($JSON->app->page->title) ? $JSON->app->page->title : '',
-                        'type' => 'page',
-                    ])) ? 1 : 0;
-                    $is_widget_navigation += is_true_variable(orange_category_widget_post_list($JSON->app->category->widget->navigation)) ? 1 : 0;
                     $is_content = '';
                     // $is_content .= orange_widget_list ([
-                    //     'exclude' => $JSON->app->category->exclude,
-                    //     'title' => is_true_variable($JSON->app->category->title) ? $JSON->app->category->title : '',
+                    //     'array' => $JSON->app->category,
                     //     'type' => 'category',
                     // ]);
                     $is_content .= orange_widget_list ([
-                        'exclude' => $JSON->app->page->exclude,
-                        'title' => is_true_variable($JSON->app->page->title) ? $JSON->app->page->title : '',
+                        'array' => $JSON->app->page,
                         'type' => 'page',
                     ]);
-                    $is_content .= orange_category_widget_post_list($JSON->app->category->widget->navigation);
-                    $is_return .= is_true_variable($is_widget_navigation) ? orange_config_selector (
+                    $is_content .= orange_category_widget_post_list([ 'array' => $JSON->app->widget->navigation ]);
+                    $is_return .= is_true_variable($is_content) ? orange_config_selector (
                         [
                             'class' => 'widget-container',
                             'id' => 'widget-navigation',
@@ -1179,9 +1210,6 @@
                             'name' => 'div',
                         ],
                     ) : '';
-                    $is_widget_localization = 0;
-                    $is_widget_localization += is_true_variable($JSON->hostel->maps) ? 1 : 0;
-                    $is_widget_localization += is_true_variable($JSON->hostel->address) ? 1 : 0;
                     $is_content = '';
                     $is_content .= is_true_variable($JSON->hostel->maps) ? orange_config_selector (
                         [ 'class' => 'widget-wrapper' ],
@@ -1202,7 +1230,7 @@
                         'content' => trim($JSON->hostel->address),
                         'wrapper' => [ 'address', 'p' ],
                     ]) : '';
-                    $is_return .= is_true_variable($is_widget_localization) ? orange_config_selector(
+                    $is_return .= is_true_variable($is_content) ? orange_config_selector(
                         [
                             'class' => 'widget-container',
                             'id' => 'widget-localization',
@@ -1213,9 +1241,6 @@
                             'name' => 'div',
                         ],
                     ) : '';
-                    $is_widget_youtube = 0;
-                    $is_widget_youtube += is_true_variable($JSON->youtube->iframe) ? 1 : 0;
-                    $is_widget_youtube += is_true_variable($JSON->youtube->description) ? 1 : 0;
                     $is_content = '';
                     $is_content .= is_true_variable($JSON->youtube->iframe) ? orange_config_selector(
                         [ 'class' => 'widget-wrapper' ],
@@ -1229,7 +1254,7 @@
                         'content' => trim($JSON->youtube->description),
                         'wrapper' => [ 'p' ],
                     ]) : '';
-                    $is_return .= is_true_variable($is_widget_youtube) ? orange_config_selector (
+                    $is_return .= is_true_variable($is_content) ? orange_config_selector (
                         [
                             'class' => [
                                 'widget-container',
@@ -2289,9 +2314,9 @@
                 'array' => $JSON->app->sidebar->up,
             ]) : '';
             $is_return .= orange_content([]);
-            if (is_true_variable($JSON->app->category->main)):
-                for ($i = 0; $i < sizeof($JSON->app->category->main); $i++):
-                    $is_return .= orange_category_main_post_list([ 'id' => $JSON->app->category->main[$i] ]);
+            if (is_true_variable($JSON->app->main)):
+                for ($i = 0; $i < sizeof($JSON->app->main); $i++):
+                    $is_return .= orange_category_main_post_list([ 'id' => $JSON->app->main[$i] ]);
                 endfor;
             endif;
             $is_return .= is_true_variable($JSON->hostel->easiness) ? orange_drop_page ([
@@ -2308,7 +2333,7 @@
                 for ($y = 0; $y < sizeof($JSON->menu[$x]->item); $y++):
                     $is_container .= is_true_variable($JSON->menu[$x]->item[$y]->title) ? orange_config_selector (
                         [
-                            'class' => is_true_variable($JSON->menu[$x]->item[$y]->description) ? [ 'm-0' ] : [],
+                            'class' => is_true_variable($JSON->menu[$x]->item[$y]->description) ? [ 'm-0' ] : [ 'm-3' ],
                         ],
                         [
                             'closed' => true,
@@ -2317,7 +2342,9 @@
                         ],
                     ) : '';
                     $is_container .= is_true_variable($JSON->menu[$x]->item[$y]->description) ? orange_config_selector (
-                        [],
+                        [
+                            'class' => [ 'm-3' ],
+                        ],
                         [
                             'closed' => true,
                             'content' => $JSON->menu[$x]->item[$y]->description,
@@ -2358,7 +2385,15 @@
                     endfor;
                     $is_content .= '</tbody>';
                     $is_container .= orange_config_selector (
-                        [],
+                        [
+                            'class' => [
+                                'alert',
+                                'alert-light',
+                                'rounded',
+                                'shadow-sm',
+                            ],
+                            'role' => 'alert',
+                        ],
                         [
                             'closed' => true,
                             'content' => orange_config_selector (

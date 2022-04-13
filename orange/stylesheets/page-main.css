@@ -1,6 +1,9 @@
 @import '--root.css';
 
-.carousel-container { background-color: white; }
+.carousel-container
+{
+  background-color: white;
+}
 
 .main-container
 {
@@ -32,9 +35,24 @@
   font-size: calc(var(--title-font-size) + var(--title-font-size) / 6 * 9);
 }
 
-#main-alert>h3, #main-alert>h3>a, #main-alert>p { color: var(--dark-color-pink); }
-#main-alert:hover>h3, #main-alert:hover>h3>a, #main-alert:hover>p { color: var(--color-white); }
-#main-alert:hover { background-color: var(--dark-color-pink); }
+#main-alert>h3,
+#main-alert>h3>a,
+#main-alert>p
+{
+  color: var(--dark-color-pink);
+}
+
+#main-alert:hover>h3,
+#main-alert:hover>h3>a,
+#main-alert:hover>p
+{
+  color: var(--color-white);
+}
+
+#main-alert:hover
+{
+  background-color: var(--dark-color-pink);
+}
 
 .main-wrapper
 {
@@ -45,13 +63,12 @@
   margin: 0 var(--margin) var(--margin) 0;
   padding: calc(var(--margin) / 2);
   position: relative;
-
   transform-style: preserve-3d;
   transition: all .5s ease;
 }
 
-/*
-.main-wrapper:hover {
+.main-wrapper:hover
+{
   cursor: pointer;
   transform: rotateY(180deg);
 }
@@ -59,16 +76,22 @@
 .main-front-wrapper,
 .main-back-wrapper
 {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
 }
-*/
 
-/* .main-back-wrapper { transform: rotateY(180deg); } */
+.main-back-wrapper
+{
+  transform: rotateY(180deg);
+}
 
-.main-content { height: 100%; width: 100%; }
+.main-content
+{
+  height: 100%;
+  width: 100%;
+}
 
 .main-title
 {
