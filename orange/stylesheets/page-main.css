@@ -67,6 +67,8 @@
   transition: all .5s ease;
 }
 
+/*
+
 .main-wrapper:hover
 {
   cursor: pointer;
@@ -87,6 +89,7 @@
   transform: rotateY(180deg);
 }
 
+*/
 .main-content
 {
   height: 100%;

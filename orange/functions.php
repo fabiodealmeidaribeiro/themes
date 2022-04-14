@@ -752,9 +752,7 @@
                                     [
                                         'closed' => true,
                                         'content' => orange_text_content([
-                                            'content' => is_true_variable(get_post_field('_secondary_title', get_post()))
-                                            ? get_post_field('_secondary_title', get_post())
-                                            : get_post_field('post_title', get_post()),
+                                            'content' => get_post_field('post_title', get_post()),
                                             'wrapper' => [ 'h4' ],
                                         ]),
                                         'name' => 'a',
