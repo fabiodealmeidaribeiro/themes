@@ -75,7 +75,7 @@
         });
 
         add_filter('excerpt_more', function () {
-            return '<p>' . 'FABIO' . '</p>';
+            return '<p>' . '' . '</p>';
         });
 
         // Versão do wordpress
@@ -300,6 +300,7 @@
                     'name' => 'meta',
                 ],
             );
+
             $is_keyword = '';
             for ($x = 0; $x < (is_true_variable($JSON->app->meta->object) ? sizeof($JSON->app->meta->object) : 0); $x++):
                 for ($y = 0; $y < (is_true_variable($JSON->app->meta->genre) ? sizeof($JSON->app->meta->genre) : 0); $y++):
@@ -316,6 +317,7 @@
                     endfor;
                 endfor;
             endfor;
+
             $is_return .= is_true_variable($JSON->app->meta->object) || is_true_variable($JSON->app->meta->genre) || is_true_variable($JSON->app->meta->place) ? orange_config_selector (
                 [
                     'name' => 'keywords',
@@ -327,6 +329,7 @@
                     'name' => 'meta',
                 ],
             ) : '';
+
             $is_return .= '<meta name=\'robots\' content=\'index, follow\'>';
             $is_return .= '<meta name=\'viewport\' content=\'width=device-width, initial-scale=1, shrink-to-fit=no\'>';
             $is_return .= '<meta http-equiv=\'Content-Type\' content=\'text/html; charset=utf-8\'>';
@@ -1165,7 +1168,7 @@
                                     ],
                                     [
                                         'closed' => true,
-                                        'content' => orange_reservation_form(),
+                                        'content' => orange_reservation_form([]),
                                         'name' => 'div',
                                     ],
                                 ),
@@ -1515,36 +1518,95 @@
             return $is_return;
         };
 
-        function orange_reservation_form () {
+        // FABIO
+
+        function orange_reservation_form ($object) {
             $is_return = '';
-            $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' method=\'get\' target=\'_blank\'>';
-                $is_return .= '<div class=\'input-group\' id=\'reservation-date\'>';
-                        $is_return .= '<span class=\'input-group-text\'>';
-                            $is_return .= __('Chegada');
-                        $is_return .= '</span>';
-                        $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
+            $is_return .= '<form action=\'https://booking.hqbeds.com.br/puravida\' method=\'get\' name=\'bookingForm\' class=\'form-horizontal form-validate\' target=\'_blank\' accept-charset=\'utf-8\'>';
+
+
+                    // <div class="container">
+                    // <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                    // <div class="col">Column</div>
+                    // <div class="col">Column</div>
+                    // <div class="col">Column</div>
+                    // <div class="col">Column</div>
+                    // </div>
+                    // </div>
+
+
+                $is_return .= '<div class=\'row\'>';
+                    $is_return .= '<div class=\'col p-0 me-3\'>';
+                        $is_return .= '<div class=\'input-group' . (is_true_key($object, 'header') ? '' : ' mb-3') . '\'>';
+                                $is_return .= '<span class=\'input-group-text\'>' . __('Chegada') . '</span>';
+                                $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
+                        $is_return .= '</div>';
+                    $is_return .= '</div>';
+                    $is_return .= is_true_key($object, 'header') ? '<div class=\'col p-0 me-3\'>' : '';
+                        $is_return .= '<div class=\'input-group' . (is_true_key($object, 'header') ? '' : ' mb-3') . '\'>';
+                                $is_return .= '<span class=\'input-group-text\'>' . __('Partida') . '</span>';
+                                $is_return .= '<input type=\'date\' class=\'form-control\' name=\'departure\' id=\'departure\' value=\'\'>';
+                        $is_return .= '</div>';
+                    $is_return .= is_true_key($object, 'header') ? '</div>' : '';
+                    $is_return .= '<div class=\'col p-0\'>';
+                        $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>' . __('Checar disponibilidade') . '</button>';
+                    $is_return .= '</div>';
                 $is_return .= '</div>';
-                $is_return .= '<div class=\'input-group\' id=\'reservation-number\'>';
-                        $is_return .= '<span class=\'input-group-text\'>';
-                            $is_return .= __('Noites');
-                        $is_return .= '</span>';
-                        $is_return .= '<select class=\'form-control\' name=\'nights\'>';
-                            for ($i = 0; $i < 31; $i++):
-                                $is_return .= '<option';
-                                    $is_return .= ' value=\'' . ($i + 1) . '\'';
-                                    $is_return .= !$i ? ' selected' : '';
-                                $is_return .= '>';
-                                $is_return .= $i + 1;
-                                $is_return .= '</option>';
-                            endfor;
-                        $is_return .= '</select>';
-                $is_return .= '</div>';
-                $is_return .= '<div id=\'reservation-check\'>';
-                    $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>';
-                        $is_return .= __('Checar disponibilidade');
-                    $is_return .= '</button>';
-                $is_return .= '</div>';
+
+
+
+
+                // $is_return .= '<div class=\'row\'>';
+                //     $is_return .= is_true_key($object, 'header') ? '<div class=\'col p-0 me-3\'>' : '';
+                //         $is_return .= '<div class=\'input-group' . (is_true_key($object, 'header') ? '' : ' mb-3') . '\'>';
+                //                 $is_return .= '<span class=\'input-group-text\'>' . __('Chegada') . '</span>';
+                //                 $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
+                //         $is_return .= '</div>';
+                //     $is_return .= is_true_key($object, 'header') ? '</div>' : '';
+                //     $is_return .= is_true_key($object, 'header') ? '<div class=\'col p-0 me-3\'>' : '';
+                //         $is_return .= '<div class=\'input-group' . (is_true_key($object, 'header') ? '' : ' mb-3') . '\'>';
+                //                 $is_return .= '<span class=\'input-group-text\'>' . __('Partida') . '</span>';
+                //                 $is_return .= '<input type=\'date\' class=\'form-control\' name=\'departure\' id=\'departure\' value=\'\'>';
+                //         $is_return .= '</div>';
+                //     $is_return .= is_true_key($object, 'header') ? '</div>' : '';
+                //     $is_return .= '<div class=\'col p-0\'>';
+                //         $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>' . __('Checar disponibilidade') . '</button>';
+                //     $is_return .= '</div>';
+                // $is_return .= '</div>';
+
+
+
+
+                
             $is_return .= '</form>';
+            // $is_return .= '<form action=\'https://admin.hqbeds.com.br/pt-br/hqb/D9pyRQdZmQ/availability\' method=\'get\' target=\'_blank\'>';
+            //     $is_return .= '<div class=\'input-group\' id=\'reservation-date\'>';
+            //             $is_return .= '<span class=\'input-group-text\'>';
+            //                 $is_return .= __('Chegada');
+            //             $is_return .= '</span>';
+            //             $is_return .= '<input type=\'date\' class=\'form-control\' name=\'arrival\' id=\'arrival\' value=\'\'>';
+            //     $is_return .= '</div>';
+            //     $is_return .= '<div class=\'input-group\' id=\'reservation-number\'>';
+            //             $is_return .= '<span class=\'input-group-text\'>';
+            //                 $is_return .= __('Noites');
+            //             $is_return .= '</span>';
+            //             $is_return .= '<select class=\'form-control\' name=\'nights\'>';
+            //                 for ($i = 0; $i < 31; $i++):
+            //                     $is_return .= '<option';
+            //                         $is_return .= ' value=\'' . ($i + 1) . '\'';
+            //                         $is_return .= !$i ? ' selected' : '';
+            //                     $is_return .= '>';
+            //                     $is_return .= $i + 1;
+            //                     $is_return .= '</option>';
+            //                 endfor;
+            //             $is_return .= '</select>';
+            //     $is_return .= '</div>';
+            //     $is_return .= '<div id=\'reservation-check\'>';
+            //         $is_return .= '<button type=\'submit\' class=\'btn btn-outline-secondary\'>';
+            //             $is_return .= __('Checar disponibilidade');
+            //         $is_return .= '</button>';
+            //     $is_return .= '</div>';
+            // $is_return .= '</form>';
             return $is_return;
         }
 
@@ -1682,7 +1744,7 @@
                                     ],
                                     [
                                         'closed' => true,
-                                        'content' => orange_reservation_form(),
+                                        'content' => orange_reservation_form([ 'header' => true ]),
                                         'name' => 'div',
                                     ],
                                 ),
